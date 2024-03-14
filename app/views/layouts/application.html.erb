@@ -11,6 +11,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= tag.link rel: "manifest", href: webmanifest_path(format: :json) %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application",
     "data-turbo-track": "reload",
@@ -26,7 +28,10 @@
       <div
         data-controller="notification"
         data-notification-delay-value="2000"
-        class="transition transform duration-1000 hidden toast toast-top w-full sm:w-fit toast-end sm:toast-end"
+        class="
+          transition transform duration-1000 hidden toast toast-top w-full sm:w-fit
+          toast-end sm:toast-end
+        "
         data-transition-enter-from="opacity-0 translate-x-6"
         data-transition-enter-to="opacity-100 translate-x-0"
         data-transition-leave-from="opacity-100 translate-x-0"
@@ -36,7 +41,6 @@
           <%# <%= flash_icon type %>
           <%= message %>
         <% end %>
-
         <!-- button data-action="notification#hide">Close</!-->
       </div>
     <% end %>

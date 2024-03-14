@@ -36,7 +36,7 @@ class SpacesController < ApplicationController
   def destroy
     @space.destroy!
 
-    flash[:info] = "Space was successfully destroyed."
+    flash[:success] = "Space was successfully destroyed."
 
     redirect_to root_path, status: :see_other
 
