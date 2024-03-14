@@ -19,6 +19,16 @@
   scrollbar-width: none; /* Firefox */
 }
 
+.btm-nav {
+    height: calc(4rem + env(safe-area-inset-bottom));
+    transform: translateY(calc(env(safe-area-inset-bottom) / 2));
+    /* padding-bottom: 0; */
+}
+
+.btm-nav-padding {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom) / 2 );
+}
+
 /* :root {
   --btn-focus-scale: 0.95;
 } */
