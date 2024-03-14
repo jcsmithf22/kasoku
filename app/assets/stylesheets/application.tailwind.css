@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 #spaces:has(.space) .no-spaces {
-    display: none;
+  display: none;
 }
 
 #todos:has(.todo) .no-todos {
-    display: none;
+  display: none;
 }
 
 .space-controls::-webkit-scrollbar {
@@ -15,6 +15,18 @@
 }
 
 .space-controls {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-} 
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+:root {
+  --btn-focus-scale: 0.95;
+}
+
+.btn {
+  animation: none;
+}
+
+.btn:active {
+  transition: transform 0.1s !important;
+}
