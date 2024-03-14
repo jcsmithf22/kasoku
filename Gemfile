@@ -72,3 +72,5 @@ end
 gem "erb-formatter", "~> 0.7.2", group: :development
 
 
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
