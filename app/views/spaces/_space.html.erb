@@ -1,0 +1,10 @@
+<%# locals: (space:) -%>
+
+<li class="space">
+  <%= link_to space_path(space.slug) do %>
+    <%= space.name %>
+    <%= tag.span class: "badge badge-sm badge-accent" do %>
+      <%= space.my_role(Current.user.id) %>
+    <% end if (Current.user.id != space.owner_id) %>
+  <% end %>
+</li>

@@ -2,15 +2,37 @@
 <html>
   <head>
     <title>Kasoku</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <%# <meta name="viewport" content="viewport-fit=cover"> %>
+    <meta name="view-transition" content="same-origin" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= javascript_include_tag "application",
+    "data-turbo-track": "reload",
+    type: "module" %>
+
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+    <%= content_for :head %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <% flash.each do |type, message| %>
+      <% puts("Type: #{type}") %>
+      <div class="p-4" data-turbo-temporary>
+        <%= tag.div class: "alert alert-#{type}", role: "alert" do %>
+          <%= flash_icon type %>
+          <%= message %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <main class="pb-16">
+      <%= yield %>
+    </main>
+
+    <%= render "bottom_navigation" %>
   </body>
 </html>

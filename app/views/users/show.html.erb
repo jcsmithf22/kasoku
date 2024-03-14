@@ -1,0 +1,56 @@
+<div class="p-2 flex flex-col gap-2 sm:gap-6 sm:p-6">
+
+  <div class="">
+    <div class="h-24 w-full"></div>
+    <h1 class="font-semibold text-3xl sticky top-0 py-4 text-center"><%= @user.name %></h1>
+    <div class="h-24 w-full"></div>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6">
+
+    <div class="card max-w-md w-full bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title">Statistics</h2>
+        <table class="table">
+          <tr>
+            <th class="pl-0">Owned</th>
+            <td><%= @user.owned_spaces.count %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Admin</th>
+            <td><%= @user.space_memberships.admin.count %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Member</th>
+            <td><%= @user.space_memberships.member.count %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Viewer</th>
+            <td><%= @user.space_memberships.viewer.count %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card max-w-md w-full bg-base-200">
+      <div class="card-body">
+        <h2 class="card-title">Information</h2>
+        <table class="table">
+          <tr>
+            <th class="pl-0">Name</th>
+            <td><%= @user.name %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Email</th>
+            <td><%= @user.email %></td>
+          </tr>
+        </table>
+        <div class="card-actions justify-end">
+          <%= link_to "Edit", edit_profile_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

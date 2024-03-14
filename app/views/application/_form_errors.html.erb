@@ -1,0 +1,15 @@
+<%# locals: (html_tag:, instance:) -%>
+
+<% method_name = instance.instance_variable_get("@method_name").humanize %>
+
+<% if html_tag =~ /^<label/ %>
+  <% field_html = Nokogiri::HTML::DocumentFragment.parse(html_tag) %>
+  <% field_html.children.add_class("input-error") %>
+
+  <%== field_html %>
+  <p class="mt-2 text-sm text-error">
+    <%= "#{method_name} #{instance.error_message.first}" %>
+  </p>
+<% else %>
+  <%= html_tag %>
+<% end %>

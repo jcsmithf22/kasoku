@@ -38,7 +38,7 @@ module Authenticate
   private
 
   def require_login
-    flash.now[:notice] = t("login_required")
+    flash.now[:info] = "You must be logged in"
     render "sessions/new", status: :unauthorized
   end
 
@@ -65,7 +65,7 @@ module Authenticate
     data => { user_id:, session_id:, token: }
 
     user = User.find(user_id)
-    user.authenticate_session(app_session, token)
+    user.authenticate_session(session_id, token)
   rescue NoMatchingPatternError, ActiveRecord::RecordNotFound
     nil
   end

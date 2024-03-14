@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#spaces:has(.space) .no-spaces {
+    display: none;
+}
