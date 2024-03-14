@@ -6,4 +6,10 @@
     <div class="h-24 w-full"></div>
   </div>
 
+  <%= render "todos/new", space: @space, todo: @todo %>
+
+  <ul class="menu menu-lg bg-base-200 rounded-box max-w-md w-full" id="todos">
+    <%# <%= render partial: "space", collection: @spaces %>
+    <li class="no-todos p-4 text-center">No todos yet</li>
+  </ul>
 </div>

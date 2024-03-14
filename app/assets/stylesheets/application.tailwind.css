@@ -5,3 +5,7 @@
 #spaces:has(.space) .no-spaces {
     display: none;
 }
+
+#todos:has(.todo) .no-todos {
+    display: none;
+}

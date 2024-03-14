@@ -6,11 +6,11 @@ class SpaceMembership < ApplicationRecord
   scope :member, -> { where(role: "member") }
   scope :viewer, -> { where(role: "viewer") }
 
-  validates :user,
-            uniqueness: {
-              scope: :space_id,
-              message: "is already a member"
-            }
+  # validates :user,
+  #           uniqueness: {
+  #             scope: :space_id,
+  #             message: "is already a member"
+  #           }
 
   enum role: {
          admin: "admin",

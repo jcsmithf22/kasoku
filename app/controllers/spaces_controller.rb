@@ -15,6 +15,7 @@ class SpacesController < ApplicationController
         @space.space_memberships.create(user: Current.user, role: "owner")
         format.html do
           redirect_to space_path(@space.slug),
+                      status: :see_other,
                       notice: "Space was successfully created."
         end
         format.turbo_stream
@@ -29,9 +30,26 @@ class SpacesController < ApplicationController
   end
 
   def show
+    @todo = @space.todos.new
   end
 
   def destroy
+    @space.destroy!
+
+    redirect_to spaces_path,
+                status: :see_other,
+                notice: "Space was successfully destroyed."
+
+    # this will be needed if we delete from the spaces index page
+
+    # respond_to do |format|
+    #   format.html do
+    #     redirect_to spaces_path,
+    #                 status: :see_other,
+    #                 notice: "Space was successfully destroyed."
+    #   end
+    #   format.turbo_stream
+    # end
   end
 
   private

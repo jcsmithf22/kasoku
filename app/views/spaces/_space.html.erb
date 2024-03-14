@@ -1,6 +1,6 @@
 <%# locals: (space:) -%>
 
-<li class="space">
+<li class="space" id="<%= dom_id space %>">
   <%= link_to space_path(space.slug) do %>
     <%= space.name %>
     <%= tag.span class: "badge badge-sm badge-accent" do %>
