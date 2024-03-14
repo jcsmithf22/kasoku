@@ -19,14 +19,14 @@
   scrollbar-width: none; /* Firefox */
 }
 
-:root {
+/* :root {
   --btn-focus-scale: 0.95;
-}
+} */
 
 .btn {
   animation: none;
 }
-
+/* 
 .btn:active {
   transition: transform 0.1s !important;
-}
+} */
