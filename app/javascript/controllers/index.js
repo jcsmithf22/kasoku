@@ -4,8 +4,8 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
-
 import ResetFormController from "./reset_form_controller"
 application.register("reset-form", ResetFormController)
+
+import Notification from 'stimulus-notification'
+application.register('notification', Notification)

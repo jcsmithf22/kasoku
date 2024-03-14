@@ -36,9 +36,9 @@ class SpacesController < ApplicationController
   def destroy
     @space.destroy!
 
-    redirect_to spaces_path,
-                status: :see_other,
-                notice: "Space was successfully destroyed."
+    flash[:info] = "Space was successfully destroyed."
+
+    redirect_to root_path, status: :see_other
 
     # this will be needed if we delete from the spaces index page
 

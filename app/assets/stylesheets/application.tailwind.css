@@ -9,3 +9,12 @@
 #todos:has(.todo) .no-todos {
     display: none;
 }
+
+.space-controls::-webkit-scrollbar {
+  display: none;
+}
+
+.space-controls {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+} 

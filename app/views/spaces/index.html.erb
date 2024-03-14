@@ -8,7 +8,7 @@
 
   <%= render "new", space: @space %>
 
-  <ul class="menu menu-lg bg-base-200 rounded-box max-w-md w-full" id="spaces">
+  <ul class="max-w-md w-full flex flex-col gap-2" id="spaces">
     <%= render partial: "space", collection: @spaces %>
     <li class="no-spaces p-4 text-center">No spaces yet</li>
   </ul>
