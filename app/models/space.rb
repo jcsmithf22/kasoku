@@ -12,6 +12,8 @@ class Space < ApplicationRecord
 
   has_many :todos, dependent: :destroy
 
+  after_update_commit :broadcast_update
+
   def my_role(user_id)
     return "owner" if owner_id == user_id
 
@@ -21,5 +23,11 @@ class Space < ApplicationRecord
   def new_member(email:, role:)
     user = User.find_by(email: email)
     space_memberships.new(user: user, role: role)
+  end
+
+  private
+
+  def broadcast_update
+    broadcast_refresh_later_to "#{slug}_members"
   end
 end

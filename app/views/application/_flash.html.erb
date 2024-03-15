@@ -1,6 +1,6 @@
 <% flash.each do |type, message| %>
+  <%= puts type, message %>
   <div
-    data-turbo-temporary
     data-controller="notification"
     data-notification-delay-value="2000"
     class="

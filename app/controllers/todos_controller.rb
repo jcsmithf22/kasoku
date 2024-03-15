@@ -45,6 +45,9 @@ class TodosController < ApplicationController
   # uses space id rather than slug
   def set_space
     @space = Current.user.spaces.find(params[:space_id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "Space does not exist"
+    redirect_to root_path, status: :see_other
   end
 
   def set_todo

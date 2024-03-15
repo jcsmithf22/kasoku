@@ -20,7 +20,7 @@ class Spaces::MembersController < ApplicationController
 
     if @member.save(context: :add_member)
       flash[:success] = "Member was successfully added"
-      redirect_to space_path(@space.slug), status: :see_other
+      redirect_to space_members_path(@space.slug), status: :see_other
     else
       flash.now[:error] = @member
         .errors
@@ -52,6 +52,11 @@ class Spaces::MembersController < ApplicationController
   # uses slug because path will be displayed
   def set_space
     @space = Current.user.spaces.find_by(slug: params[:space_id])
+
+    return if @space
+
+    flash[:error] = "Space does not exist (from members)"
+    redirect_to root_path, status: :see_other
   end
 
   def member_params

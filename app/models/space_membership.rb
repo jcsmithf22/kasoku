@@ -1,6 +1,6 @@
 class SpaceMembership < ApplicationRecord
   belongs_to :user
-  belongs_to :space
+  belongs_to :space, touch: true
 
   scope :admin, -> { where(role: "admin") }
   scope :member, -> { where(role: "member") }
@@ -21,4 +21,12 @@ class SpaceMembership < ApplicationRecord
          viewer: "viewer",
          owner: "owner"
        }
+
+  # after_destroy_commit :broadcast_remove
+
+  # private
+
+  # def broadcast_remove
+  #   broadcast_refresh_to "#{user_id}_membership_from_#{space_id}_removed"
+  # end
 end

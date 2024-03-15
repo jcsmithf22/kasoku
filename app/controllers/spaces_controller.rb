@@ -59,6 +59,11 @@ class SpacesController < ApplicationController
   # uses slug rather than id because path will be displayed
   def set_space
     @space = Current.user.spaces.find_by(slug: params[:id])
+
+    return if @space
+
+    flash[:error] = "Space does not exist"
+    redirect_to root_path, status: :see_other
   end
 
   def load_spaces
