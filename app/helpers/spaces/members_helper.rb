@@ -1,0 +1,2 @@
+module Spaces::MembersHelper
+end

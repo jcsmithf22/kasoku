@@ -1,0 +1,8 @@
+<%# locals: (member:) -%>
+
+<% unless member.owner? %>
+<li id="<%= dom_id member %>" class="member bg-base-200 rounded-btn py-3 px-6 flex items-center space-between">
+    <span class="grow"><%= member.user.name %></span>
+    <span class="badge badge-sm badge-accent shrink-0"><%= member.role %></span>
+</li>
+<% end %>

@@ -10,6 +10,10 @@
   display: none;
 }
 
+#members:has(.member) .no-members {
+  display: none;
+}
+
 .space-controls::-webkit-scrollbar {
   display: none;
 }

@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :spaces, except: %i[index new] do
     resources :todos, only: %i[create update destroy]
+    resources :members,
+              only: %i[index new create destroy],
+              controller: "spaces/members"
   end
 
   resource :profile, only: %i[show edit update], controller: "users"

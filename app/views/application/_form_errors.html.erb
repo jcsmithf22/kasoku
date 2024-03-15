@@ -2,7 +2,12 @@
 
 <% method_name = instance.instance_variable_get("@method_name").humanize %>
 
-<% if html_tag =~ /^<label/ %>
+<% if html_tag =~ /^<select/ %>
+  <% field_html = Nokogiri::HTML::DocumentFragment.parse(html_tag) %>
+  <% field_html.children.add_class("select-error") %>
+
+  <%== field_html %>
+<% elsif html_tag =~ /^<label/ %>
   <% field_html = Nokogiri::HTML::DocumentFragment.parse(html_tag) %>
   <% field_html.children.add_class("input-error") %>
 

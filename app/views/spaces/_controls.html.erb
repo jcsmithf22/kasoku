@@ -6,7 +6,7 @@
     space-controls
   "
 >
-  <%= link_to root_url, class: "btn" do %>
+  <%= link_to root_path, class: "btn" do %>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -21,7 +21,7 @@
     ><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
     Back
   <% end %>
-  <button class="btn">
+  <%= link_to new_space_member_path(space.slug), class: "btn" do %>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -35,8 +35,8 @@
       class="lucide lucide-user-plus"
     ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
     Add member
-  </button>
-  <button class="btn">
+  <% end %>
+  <%= link_to space_members_path(space.slug), class: "btn" do %>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -50,7 +50,7 @@
       class="lucide lucide-users"
     ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     Members
-  </button>
+  <% end %>
   <button class="btn">
     <svg
       xmlns="http://www.w3.org/2000/svg"

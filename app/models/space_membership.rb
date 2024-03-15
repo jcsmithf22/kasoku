@@ -13,6 +13,8 @@ class SpaceMembership < ApplicationRecord
               message: "is already a member"
             }
 
+  validates :role, presence: true
+
   enum role: {
          admin: "admin",
          member: "member",
