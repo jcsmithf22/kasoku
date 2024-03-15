@@ -32,6 +32,7 @@ class SpacesController < ApplicationController
 
   def show
     @todo = @space.todos.new
+    @todos = @space.todos.order(id: :desc)
   end
 
   def destroy
@@ -55,6 +56,7 @@ class SpacesController < ApplicationController
 
   private
 
+  # uses slug rather than id because path will be displayed
   def set_space
     @space = Current.user.spaces.find_by(slug: params[:id])
   end

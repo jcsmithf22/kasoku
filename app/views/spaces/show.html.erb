@@ -6,12 +6,12 @@
     <div class="h-24 w-full"></div>
   </div>
 
-  <%= render "controls", space: @space %>
+  <%= render "spaces/controls", space: @space %>
 
   <%= render "todos/new", space: @space, todo: @todo %>
 
   <ul class="max-w-md w-full flex flex-col gap-2" id="todos">
-    <%# <%= render partial: "space", collection: @spaces %>
+    <%= render partial: "todos/todo", locals: { space: @space }, collection: @todos %>
     <li class="no-todos p-4 text-center">No todos yet</li>
   </ul>
 </div>

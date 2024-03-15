@@ -1,0 +1,3 @@
+<%= turbo_stream.prepend "todos" do %>
+  <%= render partial: "todos/todo", locals: { space: space, todo: todo } %>
+<% end %>

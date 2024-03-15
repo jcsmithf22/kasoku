@@ -35,7 +35,7 @@ class Spaces::MembersController < ApplicationController
   def destroy
     membership = @space.space_memberships.find(params[:id])
 
-    unless Current.user.id == membership.user_id || owner?(space)
+    unless Current.user.id == membership.user_id || owner?(@space)
       flash[:error] = "Insufficient permissions"
       redirect_to space_path(@space.slug), status: :see_other
       return
@@ -49,6 +49,7 @@ class Spaces::MembersController < ApplicationController
 
   private
 
+  # uses slug because path will be displayed
   def set_space
     @space = Current.user.spaces.find_by(slug: params[:space_id])
   end
