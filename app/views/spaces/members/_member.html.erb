@@ -1,8 +1,16 @@
-<%# locals: (member:) -%>
+<%# locals: (space:, member:) -%>
 
 <% unless member.owner? %>
-<li id="<%= dom_id member %>" class="member bg-base-200 rounded-btn py-3 px-6 flex items-center space-between">
-    <span class="grow"><%= member.user.name %></span>
-    <span class="badge badge-sm badge-accent shrink-0"><%= member.role %></span>
-</li>
+  <li id="<%= dom_id member %>" class="member flex gap-2">
+    <div class="bg-base-200 rounded-l-btn rounded-r py-3 px-6 flex items-center space-between grow last:rounded-btn">
+      <span class="grow"><%= member.user.name %></span>
+      <span class="badge badge-sm badge-accent shrink-0"><%= member.role %></span>
+    </div>
+    <%= button_to users_member_path(space, slug: space.slug), method: :delete, class: "btn btn-warning shrink-0 rounded-l" do %>
+      Leave
+    <% end if member.user_id == Current.user.id %>
+    <%= button_to space_member_path(space.slug, member), method: :delete, class: "btn btn-error shrink-0 rounded-l" do %>
+      Remove
+    <% end if owner?(space) %>
+  </li>
 <% end %>

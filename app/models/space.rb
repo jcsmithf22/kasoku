@@ -15,6 +15,11 @@ class Space < ApplicationRecord
   def my_role(user_id)
     return "owner" if owner_id == user_id
 
-    space_memberships.find { |sm| sm.user_id == user_id }.role
+    space_memberships.find { |sm| sm.user_id == user_id }&.role
+  end
+
+  def new_member(email:, role:)
+    user = User.find_by(email: email)
+    space_memberships.new(user: user, role: role)
   end
 end

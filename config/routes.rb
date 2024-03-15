@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "users/new"
-  get "users/create"
   root "spaces#index"
 
   get "login", to: "sessions#new"
@@ -16,6 +14,10 @@ Rails.application.routes.draw do
     resources :members,
               only: %i[index new create destroy],
               controller: "spaces/members"
+  end
+
+  namespace :users do
+    resources :members, only: :destroy
   end
 
   resource :profile, only: %i[show edit update], controller: "users"

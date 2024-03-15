@@ -14,10 +14,10 @@
         member bg-base-200 rounded-btn py-3 px-6 flex items-center space-between
       "
     >
-      <span class="grow"><%= Current.user.name %></span>
+      <span class="grow"><%= @space.owner.name %></span>
       <span class="badge badge-sm badge-primary shrink-0">owner</span>
     </li>
-    <%= render partial: "member", collection: @members %>
+    <%= render partial: "member", locals: { space: @space }, collection: @members %>
     <li class="no-members p-4 text-center">No members yet</li>
   </ul>
 </div>

@@ -1,6 +1,7 @@
 class SpacesController < ApplicationController
   # allow_unauthenticated only: :index
   before_action :set_space, only: %i[show destroy]
+  before_action :verify_owner, only: :destroy
 
   def index
     load_spaces
@@ -64,5 +65,12 @@ class SpacesController < ApplicationController
 
   def space_params
     params.require(:space).permit(:name, :description)
+  end
+
+  def verify_owner
+    return if owner?(@space)
+
+    flash[:error] = "Insufficient permissions"
+    redirect_to space_path(@space.slug), status: :see_other
   end
 end

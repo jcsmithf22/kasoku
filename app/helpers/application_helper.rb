@@ -12,4 +12,8 @@ module ApplicationHelper
     }
     icons[type.to_sym]&.html_safe
   end
+
+  def owner?(space)
+    space.owner_id == Current.user.id
+  end
 end
