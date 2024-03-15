@@ -55,7 +55,7 @@ class Spaces::MembersController < ApplicationController
 
     return if @space
 
-    flash[:error] = "Space does not exist (from members)"
+    flash[:error] = "Space does not exist"
     redirect_to root_path, status: :see_other
   end
 
