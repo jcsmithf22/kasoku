@@ -6,7 +6,7 @@ class TodosController < ApplicationController
     @todo = @space.todos.new(todo_params)
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to space_path(@space.slug), status: :see_other }
+        format.html { redirect_to space_path(@space.slug) }
         format.turbo_stream
       else
         format.html do
@@ -19,13 +19,19 @@ class TodosController < ApplicationController
   end
 
   def update
+    @todo.update!(todo_params)
+
+    respond_to do |format|
+      format.html { redirect_to space_path(@space.slug) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     @todo.destroy!
 
     respond_to do |format|
-      format.html { redirect_to space_path(@space.slug), status: :see_other }
+      format.html { redirect_to space_path(@space.slug) }
       format.turbo_stream
     end
   end
@@ -33,7 +39,7 @@ class TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name)
+    params.require(:todo).permit(:name, :completed)
   end
 
   # uses space id rather than slug
