@@ -21,7 +21,8 @@ class Users::MembersController < ApplicationController
 
     return if @membership
 
-    flash[:error] = "You are not a member of this space"
-    redirect_to root_path, status: :see_other
+    # flash[:error] = "You are not a member of this space"
+    # redirect_to root_path, status: :see_other
+    render "errors/show", status: :unprocessable_entity
   end
 end

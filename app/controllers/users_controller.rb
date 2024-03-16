@@ -17,7 +17,6 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to Kasoku, #{@user.name}"
       redirect_to root_path, status: :see_other
     else
-      puts @user.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end

@@ -62,8 +62,9 @@ class SpacesController < ApplicationController
 
     return if @space
 
-    flash[:error] = "Space does not exist"
-    redirect_to root_path, status: :see_other
+    # flash[:error] = "Space does not exist"
+    # redirect_to root_path, status: :see_other
+    render "errors/show", status: :unprocessable_entity
   end
 
   def load_spaces
