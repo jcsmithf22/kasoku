@@ -46,8 +46,9 @@ class TodosController < ApplicationController
   def set_space
     @space = Current.user.spaces.find(params[:space_id])
   rescue ActiveRecord::RecordNotFound
-    flash[:error] = "Space does not exist"
-    redirect_to root_path, status: :see_other
+    # flash[:error] = "Space does not exist"
+    # redirect_to root_path, status: :see_other
+    render "errors/show", status: :unprocessable_entity
   end
 
   def set_todo
