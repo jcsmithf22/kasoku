@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :back_or_default
 
-  before_action :store_last_page
+  # before_action :store_last_page
 
   def store_last_page
     return unless request.get?

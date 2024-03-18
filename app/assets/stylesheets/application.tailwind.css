@@ -23,6 +23,15 @@
   scrollbar-width: none; /* Firefox */
 }
 
+main::-webkit-scrollbar {
+  display: none;
+}
+
+main {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .btm-nav {
     height: calc(4rem + env(safe-area-inset-bottom));
     transform: translateY(calc(env(safe-area-inset-bottom) / 2));
@@ -31,6 +40,10 @@
 
 .btm-nav-padding {
     padding-bottom: calc(4rem + env(safe-area-inset-bottom) / 2 );
+}
+
+.adjusted-max-height {
+  max-height: calc(100dvh - (4rem + env(safe-area-inset-bottom) / 2));
 }
 
 /* :root {

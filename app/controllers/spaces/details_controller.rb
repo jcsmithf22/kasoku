@@ -2,6 +2,7 @@ class Spaces::DetailsController < ApplicationController
   before_action :set_space
 
   def index
+    store_last_page
     @completion_stats = @space.completion
   end
 

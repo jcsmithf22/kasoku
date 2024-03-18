@@ -1,9 +1,9 @@
 class Spaces::MembersController < ApplicationController
-  skip_before_action :store_last_page, only: :new
   before_action :set_space
   before_action :verify_owner, only: %i[new create]
 
   def index
+    store_last_page
     @members =
       @space
         .space_memberships

@@ -31,6 +31,7 @@ class SpacesController < ApplicationController
   end
 
   def show
+    store_last_page
     @todo = @space.todos.new
     @todos = @space.todos.order(id: :desc)
   end
