@@ -7,11 +7,12 @@ class ApplicationController < ActionController::Base
   # before_action :store_last_page
 
   def store_last_page
-    return unless request.get?
-    session[:last_page] = session[:current_page]
-    session[:current_page] = request.fullpath
-    puts "session[:last_page]: #{session[:last_page]}"
-    puts "session[:current_page]: #{session[:current_page]}"
+    # return unless request.get?
+    # session[:last_page] = session[:current_page]
+    # session[:current_page] = request.fullpath
+    # puts "session[:last_page]: #{session[:last_page]}"
+    # puts "session[:current_page]: #{session[:current_page]}"
+    session[:last_page] = request.fullpath
   end
 
   def back_or_default(default_path = root_path)

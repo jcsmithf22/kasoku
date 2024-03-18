@@ -3,7 +3,6 @@ class Spaces::MembersController < ApplicationController
   before_action :verify_owner, only: %i[new create]
 
   def index
-    store_last_page
     @members =
       @space
         .space_memberships
