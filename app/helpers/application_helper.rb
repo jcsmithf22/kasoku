@@ -16,4 +16,13 @@ module ApplicationHelper
   def owner?(space)
     space.owner_id == Current.user.id
   end
+
+  def back_to_space_path(key, space, options = {})
+    options = {
+      "default" => space_path(space.slug),
+      "details" => space_details_path(space.slug, options),
+      "members" => space_members_path(space.slug, options)
+    }
+    options[key] || options["default"]
+  end
 end

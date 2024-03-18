@@ -35,6 +35,9 @@ class SpacesController < ApplicationController
     @todos = @space.todos.order(id: :desc)
   end
 
+  def edit
+  end
+
   def destroy
     @space.destroy!
 

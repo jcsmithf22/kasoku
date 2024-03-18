@@ -1,0 +1,81 @@
+<div class="p-2 flex flex-col gap-2 sm:gap-6 sm:p-6">
+
+  <div class="">
+    <div class="h-24 w-full"></div>
+    <h1 class="font-semibold text-3xl sticky top-0 py-4 text-center">Details</h1>
+    <div class="h-24 w-full"></div>
+  </div>
+
+  <%= render "controls", space: @space %>
+
+  <div class="grid grid-cols-1 gap-6">
+
+    <div class="card max-w-md w-full bg-base-200 rounded-btn">
+      <div class="card-body">
+        <h2 class="card-title">Information</h2>
+        <table class="table">
+          <tr>
+            <th class="pl-0">Name</th>
+            <td><%= @space.name %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Owner</th>
+            <td><%= @space.owner.name %></td>
+          </tr>
+        </table>
+        <div class="card-actions justify-end">
+          <%= link_to "Edit", "#", class: "btn btn-neutral" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card max-w-md w-full bg-base-200 rounded-btn">
+      <div class="card-body">
+        <h2 class="card-title">Todos</h2>
+        <table class="table">
+          <tr>
+            <th class="pl-0">Total</th>
+            <td><%= @completion_stats[:count] %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Completed</th>
+            <td><%= @completion_stats[:completed] %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Completion</th>
+            <td><%= @completion_stats[:percentage] %>%</td>
+          </tr>
+        </table>
+        <progress class="progress w-full" value="<%= @completion_stats[:percentage] %>" max="100"></progress>
+      </div>
+    </div>
+
+    <div class="card max-w-md w-full bg-base-200 rounded-btn">
+      <div class="card-body">
+        <h2 class="card-title">Members</h2>
+        <table class="table">
+          <tr>
+            <th class="pl-0">Total</th>
+            <td><%= @space.space_memberships.count - 1 %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Admin</th>
+            <td><%= @space.space_memberships.admin.count %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Member</th>
+            <td><%= @space.space_memberships.member.count %></td>
+          </tr>
+          <tr>
+            <th class="pl-0">Viewer</th>
+            <td><%= @space.space_memberships.viewer.count %></td>
+          </tr>
+        </table>
+        <div class="card-actions justify-end">
+          <%= link_to "Edit", space_members_path(@space.slug), class: "btn btn-neutral" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

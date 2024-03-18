@@ -25,6 +25,16 @@ class Space < ApplicationRecord
     space_memberships.new(user: user, role: role)
   end
 
+  def completion
+    completed_count = todos.completed.count
+    count = todos.count
+    {
+      completed: completed_count,
+      count: count,
+      percentage: (completed_count.to_f / count * 100).to_i
+    }
+  end
+
   private
 
   def broadcast_update

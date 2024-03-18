@@ -1,0 +1,2 @@
+module Spaces::DetailsHelper
+end

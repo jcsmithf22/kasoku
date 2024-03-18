@@ -1,4 +1,5 @@
 class Spaces::MembersController < ApplicationController
+  skip_before_action :store_last_page, only: :new
   before_action :set_space
   before_action :verify_owner, only: %i[new create]
 
@@ -20,7 +21,8 @@ class Spaces::MembersController < ApplicationController
 
     if @member.save(context: :add_member)
       flash[:success] = "Member was successfully added"
-      redirect_to space_members_path(@space.slug), status: :see_other
+      redirect_to back_to_space_path(member_params[:from], @space),
+                  status: :see_other
     else
       flash.now[:error] = @member
         .errors
@@ -61,7 +63,7 @@ class Spaces::MembersController < ApplicationController
   end
 
   def member_params
-    params.require(:space_membership).permit(:user, :role)
+    params.require(:space_membership).permit(:user, :role, :from)
   end
 
   def verify_owner
