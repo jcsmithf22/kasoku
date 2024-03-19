@@ -12,9 +12,11 @@ class Spaces::MembersController < ApplicationController
 
   def new
     @member = @space.space_memberships.new
+    @back_to_members = params[:from]
   end
 
   def create
+    @back_to_members = member_params[:from]
     @member =
       @space.new_member(email: member_params[:user], role: member_params[:role])
 

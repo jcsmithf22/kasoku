@@ -27,7 +27,7 @@
     <% end %>
   </div>
 
-  <%= form.hidden_field :from, value: params[:from] %>
+  <%= form.hidden_field :from, value: @back_to_members %>
 
   <%= form.submit "Add member", class: "btn btn-neutral" %>
 <% end %>
