@@ -1,3 +1,3 @@
 <%= turbo_stream.prepend "spaces" do %>
-  <%= render partial: "spaces/space", locals: { space: space } %>
+  <%= render partial: "spaces/space", locals: { space: space, user: user } %>
 <% end %>

@@ -22,6 +22,28 @@ class SpaceMembership < ApplicationRecord
          owner: "owner"
        }
 
+  after_create_commit :broadcast_create_later
+  after_destroy_commit :broadcast_destroy
+
+  private
+
+  def broadcast_create_later
+    broadcast_render_later_to user,
+                              partial: "spaces/create",
+                              locals: {
+                                space: space,
+                                user: user
+                              }
+  end
+
+  def broadcast_destroy
+    broadcast_render_to user,
+                        partial: "spaces/destroy",
+                        locals: {
+                          space: space
+                        }
+  end
+
   # after_destroy_commit :broadcast_remove
 
   # private

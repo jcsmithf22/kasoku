@@ -31,7 +31,7 @@ class Space < ApplicationRecord
     {
       completed: completed_count,
       count: count,
-      percentage: (completed_count.to_f / count * 100).to_i
+      percentage: count > 0 ? (completed_count.to_f / count * 100).to_i : 0
     }
   end
 

@@ -1,45 +1,54 @@
 <%# locals: (space:, todo:) -%>
 
-<li
-  id="<%= dom_id todo %>"
-  class="todo bg-base-200 rounded-btn flex items-center justify-between"
->
-  <div class="flex items-center">
-    <%= form_with(model: [space, todo]) do |form| %>
-      <%= form.hidden_field :completed, value: !todo.completed %>
-      <div class="p-2">
-        <%= form.button class: "btn btn-sm btn-square btn-outline btn-success" do %>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-check <%= "opacity-0" if !todo.completed %>"
-          ><path d="M20 6 9 17l-5-5"/></svg>
-        <% end %>
-      </div>
+<% cache todo do %>
+  <li
+    id="<%= dom_id todo %>"
+    class="todo bg-base-200 rounded-btn flex items-center justify-between"
+    data-controller="modal"
+  >
+    <div class="flex items-center grow">
+      <%= form_with(model: [space, todo]) do |form| %>
+        <%= form.hidden_field :completed, value: !todo.completed %>
+        <div class="p-2">
+          <%= form.button class: "btn btn-sm btn-square btn-outline btn-success" do %>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="
+                lucide lucide-check <%= "opacity-0" if !todo.completed %>
+              "
+            ><path d="M20 6 9 17l-5-5"/></svg>
+          <% end %>
+        </div>
+      <% end %>
+      <span
+        data-action="dblclick->modal#open"
+        class="py-3 pr-3 block w-full <%= "opacity-50" if todo.completed %>"
+      >
+        <%= todo.name %>
+      </span>
+    </div>
+    <%= button_to space_todo_path(space, todo), method: :delete, class: "btn btn-square btn-ghost shrink-0" do %>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-x"
+      ><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     <% end %>
-    <span class="py-3 pr-3 block <%= "opacity-50" if todo.completed %>">
-      <%= todo.name %>
-    </span>
-  </div>
-  <%= button_to space_todo_path(space, todo), method: :delete, class: "btn btn-square btn-ghost" do %>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-x"
-    ><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-  <% end %>
-</li>
+    <%= render partial: "todos/modal", locals: { space: space, todo: todo } %>
+  </li>
+<% end %>

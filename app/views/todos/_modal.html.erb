@@ -1,0 +1,19 @@
+<%# locals: (space:, todo:) -%>
+
+<!-- Open the modal using ID.showModal() method -->
+<dialog data-modal-target="modal" class="modal h-3/4 sm:h-full">
+  <div class="modal-box rounded-btn relative">
+    <h3 class="font-bold text-lg">Edit</h3>
+    <%= form_with(model: [space, todo], class: "w-full flex flex-col gap-y-6 pt-6") do |form| %>
+      <div class="[&_p]:sr-only">
+        <%= form.label :name, class: "input input-bordered flex items-center gap-2", id: "new_todo" do %>
+          <%= form.text_field :name, class: "grow", placeholder: "Name", autocomplete: "off" %>
+        <% end %>
+      </div>
+      <div class="flex gap-x-2 self-end">
+        <button class="btn" type="button" data-action="modal#close">Close</button>
+        <%= form.submit "Save", class: "btn btn-neutral" %>
+      </div>
+    <% end %>
+  </div>
+</dialog>

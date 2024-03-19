@@ -1,2 +1,2 @@
-<%= render partial: "create", locals: { space: @space } %>
+<%= render partial: "create", locals: { space: @space, user: Current.user } %>
 <%= turbo_stream.action :remove_error, "new_space" %>

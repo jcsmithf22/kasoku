@@ -13,6 +13,6 @@ module.exports = {
     'alert-error',
   ],
   daisyui: {
-    themes: ["light", "dark", "cupcake"]
+    themes: ["cupcake"]
   }
 }

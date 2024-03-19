@@ -1,10 +1,12 @@
-<%# locals: (space:) -%>
+<%# locals: (space:, user:) -%>
 
+<% cache space do %>
 <li id="<%= dom_id space %>" class="space bg-base-200 rounded-btn hover:bg-base-content/10">
   <%= link_to space_path(space.slug), class: "py-3 px-6 flex items-center space-between" do %>
   <span class="grow"><%= space.name %></span>
     <%= tag.span class: "badge badge-sm badge-accent shrink-0" do %>
-      <%= space.my_role(Current.user.id) %>
-    <% end if (Current.user.id != space.owner_id) %>
+      <%= space.my_role(user.id) %>
+    <% end if (user.id != space.owner_id) %>
   <% end %>
 </li>
+<% end %>
