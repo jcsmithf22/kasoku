@@ -11,7 +11,7 @@
   <%= render "new", space: @space %>
 
   <ul class="max-w-md w-full flex flex-col gap-2" id="spaces">
-    <%= render partial: "space", locals: { user: Current.user }, collection: @spaces, cached: true %>
+    <%= render partial: "space", locals: { user: Current.user }, collection: @spaces %>
     <li class="no-spaces p-4 text-center">No spaces yet</li>
   </ul>
 </div>

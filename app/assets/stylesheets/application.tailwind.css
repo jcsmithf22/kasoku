@@ -57,3 +57,18 @@ main {
 .btn:active {
   transition: transform 0.1s !important;
 } */
+
+@supports (animation-timeline: scroll()) {
+	.space-controls a {
+		animation-name: scale, scale;
+		animation-fill-mode: both;
+		animation-timing-function: ease-in-out;
+		animation-direction: normal, reverse;
+		animation-timeline: view(inline);
+		animation-range: entry -50% entry 100%, exit 0% exit 150%;
+	}
+
+	@keyframes scale {
+		0% { scale: 0.25; }
+	}
+}
