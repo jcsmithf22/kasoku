@@ -1,6 +1,6 @@
 <%# locals: (space:) -%>
 
-<%= form_with(model: space, class: "max-w-md w-full flex flex-col gap-y-6", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |form| %>
+<%= form_with(model: space, class: "w-full flex flex-col gap-y-6", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |form| %>
   <div class="[&_p]:sr-only">
     <%= form.label :name, class: "input input-bordered flex items-center gap-2", id: "new_space" do %>
       <%= form.text_field :name,

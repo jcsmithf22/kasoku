@@ -1,4 +1,4 @@
-<%= form_with(model: [space, member], url: space_members_path, class: "max-w-md w-full flex flex-col gap-y-6") do |form| %>
+<%= form_with(model: [space, member], url: space_members_path, class: "w-full flex flex-col gap-y-6") do |form| %>
   <div class="[&_p]:sr-only">
     <%= form.label :user, class: "input input-bordered flex items-center gap-2" do %>
       <svg

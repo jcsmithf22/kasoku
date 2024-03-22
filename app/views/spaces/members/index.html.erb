@@ -1,16 +1,12 @@
 <%= turbo_stream_from "#{@space.slug}_members" %>
 
-<div class="p-2 flex flex-col gap-2 sm:gap-6 sm:p-6">
+<div class="p-2 flex flex-col gap-2 sm:p-6">
 
-  <div class="">
-    <div class="h-24 w-full"></div>
-    <h1 class="font-semibold text-3xl sticky top-0 py-4 text-center">Members</h1>
-    <div class="h-24 w-full"></div>
-  </div>
+  <%= render "application/heading", title: "Members" %>
 
   <%= render "controls", space: @space %>
 
-  <ul class="max-w-md w-full flex flex-col gap-2" id="members">
+  <ul class="w-full flex flex-col gap-2" id="members">
     <li
       class="
         member bg-base-200 rounded-btn py-3 px-6 flex items-center space-between

@@ -58,6 +58,13 @@ main {
   transition: transform 0.1s !important;
 } */
 
+@media (min-width: 640px) {
+  .adjusted-max-height {
+    max-height: 100vh;
+    padding-bottom: 4.5rem;
+  }
+}
+
 @supports (animation-timeline: scroll()) {
 	.space-controls a {
 		animation-name: scale, scale;

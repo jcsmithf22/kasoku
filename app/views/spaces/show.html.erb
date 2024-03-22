@@ -1,18 +1,14 @@
 <%= turbo_stream_from @space %>
 
-<div class="p-2 flex flex-col gap-2 sm:gap-6 sm:p-6">
+<div class="p-2 flex flex-col gap-2 sm:p-6">
 
-  <div class="">
-    <div class="h-24 w-full"></div>
-    <h1 class="font-semibold text-3xl sticky top-0 py-4 text-center"><%= @space.name %></h1>
-    <div class="h-24 w-full"></div>
-  </div>
+  <%= render "application/heading", title: @space.name %>
 
   <%= render "spaces/controls", space: @space %>
 
   <%= render "todos/new", space: @space, todo: @todo %>
 
-  <ul class="max-w-md w-full flex flex-col gap-2" id="todos">
+  <ul class="w-full flex flex-col gap-2" id="todos">
     <%= render partial: "todos/todo",
     locals: {
       space: @space,

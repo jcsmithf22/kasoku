@@ -1,14 +1,10 @@
-<div class="p-2 flex flex-col gap-2 sm:gap-6 sm:p-6">
+<div class="p-2 flex flex-col gap-2 sm:p-6">
 
-  <div class="">
-    <div class="h-24 w-full"></div>
-    <h1 class="font-semibold text-3xl sticky top-0 py-4 text-center"><%= @user.name %></h1>
-    <div class="h-24 w-full"></div>
-  </div>
+  <%= render "application/heading", title: @user.name %>
 
   <div class="grid grid-cols-1 gap-6">
 
-    <div class="card max-w-md w-full bg-base-200 rounded-btn">
+    <div class="card  w-full bg-base-200 rounded-btn">
       <div class="card-body">
         <h2 class="card-title">Statistics</h2>
         <table class="table">
@@ -32,7 +28,7 @@
       </div>
     </div>
 
-    <div class="card max-w-md w-full bg-base-200 rounded-btn">
+    <div class="card  w-full bg-base-200 rounded-btn">
       <div class="card-body">
         <h2 class="card-title">Information</h2>
         <table class="table">
