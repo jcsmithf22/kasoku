@@ -31,10 +31,13 @@
 
     <%= render "flash" %>
 
-    <main class="adjusted-max-height overflow-x-hidden overflow-y-scroll sm:max-w-lg sm:mx-auto">
+    <main class="<%= class_names(
+      "overflow-x-hidden sm:max-w-lg sm:mx-auto",
+      "adjusted-max-height overflow-y-scroll": Current.user
+    ) %>">
       <%= yield %>
     </main>
 
-    <%= render "bottom_navigation" %>
+    <%= render "bottom_navigation" if Current.user %>
   </body>
 </html>

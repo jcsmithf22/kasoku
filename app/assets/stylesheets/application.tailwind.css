@@ -1,6 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: cupcake --default;
+}
+
+@source "../../views/**/*.html.erb";
+@source "../../helpers/**/*.rb";
+@source "../../javascript/**/*.js";
+@source inline("alert-info alert-success alert-warning alert-error");
+
+@layer base {
+  html {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+}
 
 #spaces:has(.space) .no-spaces {
   display: none;
@@ -32,13 +44,13 @@ main {
   scrollbar-width: none; /* Firefox */
 }
 
-.btm-nav {
+.dock {
     height: calc(4rem + env(safe-area-inset-bottom));
     transform: translateY(calc(env(safe-area-inset-bottom) / 2));
     /* padding-bottom: 0; */
 }
 
-.btm-nav-padding {
+.dock-padding {
     padding-bottom: calc(4rem + env(safe-area-inset-bottom) / 2 );
 }
 

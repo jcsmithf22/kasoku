@@ -1,5 +1,5 @@
 class PwaController < ApplicationController
-  skip_authentication
+  allow_unauthenticated_access
   skip_forgery_protection
 
   def service_worker

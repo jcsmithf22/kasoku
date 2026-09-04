@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   root "spaces#index"
 
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
+  get "login", to: "sessions#new", as: :new_session
+  post "login", to: "sessions#create", as: :session
 
   delete "logout", to: "sessions#destroy"
 
-  get "sign_up", to: "users#new"
-  post "sign_up", to: "users#create"
+  resource :sign_up, only: %i[show create]
 
   resources :spaces, except: %i[index new] do
     resources :todos, only: %i[create update destroy]

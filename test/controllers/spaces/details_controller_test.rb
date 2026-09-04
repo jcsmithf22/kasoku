@@ -1,8 +1,11 @@
 require "test_helper"
 
 class Spaces::DetailsControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get spaces_details_index_url
+  test "gets details for a member" do
+    sign_in_as users(:one)
+
+    get space_details_url(spaces(:one).slug)
+
     assert_response :success
   end
 end

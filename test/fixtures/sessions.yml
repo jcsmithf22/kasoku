@@ -2,8 +2,10 @@
 
 one:
   user: one
-  token_digest: MyString
+  ip_address: 127.0.0.1
+  user_agent: Rails Test
 
 two:
   user: two
-  token_digest: MyString
+  ip_address: 127.0.0.1
+  user_agent: Rails Test
