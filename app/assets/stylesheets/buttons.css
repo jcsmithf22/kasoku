@@ -1,3 +1,4 @@
+@layer components {
 :root {
   --btn-size: 2.65em;
 }
@@ -179,4 +180,5 @@
   img {
     animation: zoom-fade 300ms ease-out;
   }
+}
 }

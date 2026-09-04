@@ -1,3 +1,4 @@
+@layer components {
 .lightbox {
   --backdrop-speed: 150ms;
   --speed: 150ms;
@@ -55,4 +56,5 @@
   grid-area: 1/1;
   max-inline-size: calc(100dvw - (var(--inline-space) * 2));
   max-block-size: calc(100dvh - (var(--block-space) * 2));
+}
 }

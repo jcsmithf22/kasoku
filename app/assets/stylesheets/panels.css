@@ -1,3 +1,4 @@
+@layer components {
 .panel {
   background-color: var(--color-bg);
   border: 1px solid var(--panel-border-color, var(--color-subtle));
@@ -18,4 +19,5 @@
   font-size: 0.6rem;
   inset: calc(var(--block-space) / 3) calc(var(--block-space) / 3) auto auto;
   position: absolute;
+}
 }

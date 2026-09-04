@@ -1,3 +1,4 @@
+@layer components {
 :is(.dialog) {
   --backdrop-speed: 150ms;
   --panel-size: max-content;
@@ -42,4 +43,5 @@
       opacity: 0;
     }
   }
+}
 }

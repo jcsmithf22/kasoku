@@ -1,3 +1,4 @@
+@layer base {
 body {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
@@ -80,4 +81,5 @@ body {
   @media print {
     display: none;
   }
+}
 }

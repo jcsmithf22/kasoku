@@ -1,3 +1,6 @@
+@layer reset, base, components, utilities;
+
+@layer reset {
 /*
  * Modern CSS Reset
  * @link https://github.com/hankchizljaw/modern-css-reset
@@ -81,4 +84,5 @@ select {
   html {
     scroll-behavior: initial;
   }
+}
 }

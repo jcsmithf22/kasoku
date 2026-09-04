@@ -1,3 +1,4 @@
+@layer utilities {
 :root {
   --inline-space: 1ch;
   --inline-space-half: calc(var(--inline-space) / 2);
@@ -238,3 +239,4 @@
 /* Visibility */
 [hidden] { display: none; }
 [contents] { display: contents; }
+}

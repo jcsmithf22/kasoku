@@ -1,3 +1,4 @@
+@layer utilities {
 /* Animation classes */
 .shake {
   animation: shake 400ms both;
@@ -53,4 +54,5 @@
 
 @keyframes zoom-fade {
   100% { transform: translateY(-2em); opacity: 0; }
+}
 }
