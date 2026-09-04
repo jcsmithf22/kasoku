@@ -24,7 +24,10 @@
       <p>Admin: <%= @space.space_memberships.admin.count %></p>
       <p>Member: <%= @space.space_memberships.member.count %></p>
       <p>Viewer: <%= @space.space_memberships.viewer.count %></p>
-      <%= link_to "Edit", space_members_path(@space), class: "btn btn--small" %>
+      <%= link_to space_members_path(@space), class: "btn btn--small", title: "Edit members" do %>
+        <%= image_tag "pencil.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Edit</span>
+      <% end %>
     </section>
   </div>
 </div>

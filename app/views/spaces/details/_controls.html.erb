@@ -1,5 +1,8 @@
 <%# locals: (space:) -%>
 
 <div class="margin-block">
-  <%= link_to "Back", space, class: "btn btn--small" %>
+  <%= link_to space, class: "btn btn--small", title: "Go back" do %>
+    <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+    <span class="for-screen-reader">Go back</span>
+  <% end %>
 </div>

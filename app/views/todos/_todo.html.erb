@@ -5,15 +5,19 @@
     <div class="flex gap align-center min-width">
       <%= form_with model: [space, todo] do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>
-        <%= form.button class: "btn btn--small" do %>
-          <%= todo.completed? ? "Done" : "Todo" %>
+        <%= form.button class: "btn btn--small", title: (todo.completed? ? "Mark as todo" : "Mark as done") do %>
+          <%= image_tag todo.completed? ? "check-circle.svg" : "circle.svg", aria: { hidden: true }, size: 24 %>
+          <span class="for-screen-reader"><%= todo.completed? ? "Done" : "Todo" %></span>
         <% end %>
       <% end %>
       <span class="overflow-ellipsis" data-action="dblclick->modal#open">
         <%= todo.name %>
       </span>
     </div>
-    <%= button_to "Remove", space_todo_path(space, todo), method: :delete, class: "btn btn--small btn--negative" %>
+    <%= button_to space_todo_path(space, todo), method: :delete, class: "btn btn--small btn--negative", title: "Remove" do %>
+      <%= image_tag "trash.svg", aria: { hidden: true }, size: 24 %>
+      <span class="for-screen-reader">Remove</span>
+    <% end %>
     <%= render partial: "todos/modal", locals: { space: space, todo: todo } %>
   </li>
 <% end %>

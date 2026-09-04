@@ -26,13 +26,28 @@
   <body>
     <header id="header">
       <nav class="flex flex-wrap gap-half">
-        <%= link_to "Home", root_path, class: "btn btn--reversed" %>
+        <%= link_to root_path, class: "btn btn--reversed", title: "Home" do %>
+          <%= image_tag "house.svg", aria: { hidden: true }, size: 24 %>
+          <span class="for-screen-reader">Home</span>
+        <% end %>
         <% if authenticated? %>
-          <%= link_to "Settings", settings_root_path, class: "btn" %>
-          <%= button_to "Log out", session_path, method: :delete, class: "btn" %>
+          <%= link_to settings_root_path, class: "btn", title: "Settings" do %>
+            <%= image_tag "gear.svg", aria: { hidden: true }, size: 24 %>
+            <span class="for-screen-reader">Settings</span>
+          <% end %>
+          <%= button_to session_path, method: :delete, class: "btn", title: "Log out" do %>
+            <%= image_tag "sign-out.svg", aria: { hidden: true }, size: 24 %>
+            <span class="for-screen-reader">Log out</span>
+          <% end %>
         <% else %>
-          <%= link_to "Sign Up", sign_up_path, class: "btn btn--link" %>
-          <%= link_to "Login", new_session_path, class: "btn" %>
+          <%= link_to sign_up_path, class: "btn btn--link", title: "Sign up" do %>
+            <%= image_tag "user-plus.svg", aria: { hidden: true }, size: 24 %>
+            <span class="for-screen-reader">Sign up</span>
+          <% end %>
+          <%= link_to new_session_path, class: "btn", title: "Log in" do %>
+            <%= image_tag "sign-in.svg", aria: { hidden: true }, size: 24 %>
+            <span class="for-screen-reader">Log in</span>
+          <% end %>
         <% end %>
       </nav>
     </header>

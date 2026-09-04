@@ -6,7 +6,17 @@
       <span><%= member.user.full_name %></span>
       <span class="txt-small txt-subtle"><%= member.role %></span>
     </div>
-    <%= button_to "Leave", users_member_path(space.id, slug: space.slug), method: :delete, class: "btn btn--small btn--negative" if member.user_id == Current.user.id %>
-    <%= button_to "Remove", space_member_path(space, member), method: :delete, class: "btn btn--small btn--negative" if owner?(space) %>
+    <% if member.user_id == Current.user.id %>
+      <%= button_to users_member_path(space.id, slug: space.slug), method: :delete, class: "btn btn--small btn--negative", title: "Leave" do %>
+        <%= image_tag "user-minus.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Leave</span>
+      <% end %>
+    <% end %>
+    <% if owner?(space) %>
+      <%= button_to space_member_path(space, member), method: :delete, class: "btn btn--small btn--negative", title: "Remove" do %>
+        <%= image_tag "trash.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Remove</span>
+      <% end %>
+    <% end %>
   </li>
 <% end %>

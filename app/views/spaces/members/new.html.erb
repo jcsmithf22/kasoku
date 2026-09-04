@@ -3,5 +3,8 @@
 
   <%= render "form", space: @space, member: @member %>
 
-  <%= link_to "Return to space", @space, class: "btn margin-block-start" %>
+  <%= link_to @space, class: "btn margin-block-start", title: "Return to space" do %>
+    <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+    <span class="for-screen-reader">Return to space</span>
+  <% end %>
 </div>
