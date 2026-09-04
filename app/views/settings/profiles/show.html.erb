@@ -1,21 +1,21 @@
 <h1>Profile</h1>
 
-<%= form_with model: Current.user, url: settings_profile_path do |form| %>
+<%= form_with model: Current.user, url: settings_profile_path, class: "flex flex-column gap" do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="txt-negative">
       Error: <%= form.object.errors.full_messages.first %>
     </div>
   <% end %>
 
   <div>
     <%= form.label :first_name %>
-    <%= form.text_field :first_name, required: true, autocomplete: "given-name" %>
+    <%= form.text_field :first_name, required: true, autocomplete: "given-name", class: "input" %>
   </div>
 
   <div>
     <%= form.label :last_name %>
-    <%= form.text_field :last_name, required: true, autocomplete: "family-name" %>
+    <%= form.text_field :last_name, required: true, autocomplete: "family-name", class: "input" %>
   </div>
 
-  <%= form.submit "Update profile" %>
+  <%= form.submit "Update profile", class: "btn btn--link align-self-start" %>
 <% end %>

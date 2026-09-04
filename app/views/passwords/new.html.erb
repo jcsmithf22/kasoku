@@ -1,17 +1,17 @@
-<div>
+<div class="panel center margin-block-double">
   <% if alert = flash[:alert] %>
-    <p id="alert"><%= alert %></p>
+    <p id="alert" class="txt-negative"><%= alert %></p>
   <% end %>
 
   <h1>Forgot your password?</h1>
 
-  <%= form_with url: passwords_path do |form| %>
+  <%= form_with url: passwords_path, class: "flex flex-column gap txt-align-start" do |form| %>
     <div>
-      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input" %>
     </div>
 
     <div>
-      <%= form.submit "Email reset instructions" %>
+      <%= form.submit "Email reset instructions", class: "btn btn--link" %>
     </div>
   <% end %>
 </div>

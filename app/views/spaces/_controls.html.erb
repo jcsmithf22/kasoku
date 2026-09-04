@@ -1,10 +1,10 @@
 <%# locals: (space:) -%>
 
-<div>
-  <%= link_to "Back", root_path %>
-  <%= link_to "Add member", new_space_member_path(space) if owner?(space) %>
-  <%= link_to "Members", space_members_path(space) %>
-  <%= link_to "Details", space_details_path(space) %>
-  <%= link_to "Leave", users_member_path(space.id, slug: space.slug), data: { turbo_method: :delete } unless owner?(space) %>
-  <%= link_to "Delete", space, data: { turbo_method: :delete, turbo_confirm: "Delete this space?" } if owner?(space) %>
+<div class="flex flex-wrap gap-half justify-center margin-block">
+  <%= link_to "Back", root_path, class: "btn btn--small" %>
+  <%= link_to "Add member", new_space_member_path(space), class: "btn btn--small btn--link" if owner?(space) %>
+  <%= link_to "Members", space_members_path(space), class: "btn btn--small" %>
+  <%= link_to "Details", space_details_path(space), class: "btn btn--small" %>
+  <%= link_to "Leave", users_member_path(space.id, slug: space.slug), class: "btn btn--small btn--negative", data: { turbo_method: :delete } unless owner?(space) %>
+  <%= link_to "Delete", space, class: "btn btn--small btn--negative", data: { turbo_method: :delete, turbo_confirm: "Delete this space?" } if owner?(space) %>
 </div>

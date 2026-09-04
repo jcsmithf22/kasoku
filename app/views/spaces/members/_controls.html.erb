@@ -1,6 +1,6 @@
 <%# locals: (space:) -%>
 
-<div>
-  <%= link_to "Back", back_or_default(space_path(space)) %>
-  <%= link_to "Add member", new_space_member_path(space, from: "members") if owner?(space) %>
+<div class="flex flex-wrap gap-half justify-center margin-block">
+  <%= link_to "Back", back_or_default(space_path(space)), class: "btn btn--small" %>
+  <%= link_to "Add member", new_space_member_path(space, from: "members"), class: "btn btn--small btn--link" if owner?(space) %>
 </div>

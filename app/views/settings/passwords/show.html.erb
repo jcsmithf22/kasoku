@@ -1,26 +1,26 @@
 <h1>Password</h1>
 
-<%= form_with model: Current.user, url: settings_password_path do |form| %>
+<%= form_with model: Current.user, url: settings_password_path, class: "flex flex-column gap" do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="txt-negative">
       <%= form.object.errors.full_messages.first %>
     </div>
   <% end %>
 
   <div>
     <%= form.label :password_challenge %>
-    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password" %>
+    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password", class: "input" %>
   </div>
 
   <div>
     <%= form.label :password %>
-    <%= form.password_field :password, required: true, autocomplete: "new-password" %>
+    <%= form.password_field :password, required: true, autocomplete: "new-password", class: "input" %>
   </div>
 
   <div>
     <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password" %>
+    <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "input" %>
   </div>
 
-  <%= form.submit "Update password" %>
+  <%= form.submit "Update password", class: "btn btn--link align-self-start" %>
 <% end %>

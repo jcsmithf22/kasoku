@@ -1,12 +1,12 @@
 <%# locals: (space:, member:) -%>
 
 <% unless member.owner? %>
-  <li id="<%= dom_id member %>">
-    <div>
+  <li id="<%= dom_id member %>" class="panel full-width flex flex-wrap gap justify-space-between align-center">
+    <div class="flex flex-column">
       <span><%= member.user.full_name %></span>
-      <span><%= member.role %></span>
+      <span class="txt-small txt-subtle"><%= member.role %></span>
     </div>
-    <%= button_to "Leave", users_member_path(space.id, slug: space.slug), method: :delete if member.user_id == Current.user.id %>
-    <%= button_to "Remove", space_member_path(space, member), method: :delete if owner?(space) %>
+    <%= button_to "Leave", users_member_path(space.id, slug: space.slug), method: :delete, class: "btn btn--small btn--negative" if member.user_id == Current.user.id %>
+    <%= button_to "Remove", space_member_path(space, member), method: :delete, class: "btn btn--small btn--negative" if owner?(space) %>
   </li>
 <% end %>

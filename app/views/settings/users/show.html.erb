@@ -2,4 +2,4 @@
 
 <p><%= Current.user.full_name %> · <%= Current.user.email_address %></p>
 
-<%= button_to "Delete my account", settings_user_path, method: :delete, data: { turbo_confirm: "Are you sure? This cannot be undone." } %>
+<%= button_to "Delete my account", settings_user_path, method: :delete, class: "btn btn--negative", data: { turbo_confirm: "Are you sure? This cannot be undone." } %>

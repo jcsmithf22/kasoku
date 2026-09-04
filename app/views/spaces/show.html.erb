@@ -6,7 +6,7 @@
   <%= render "spaces/controls", space: @space %>
   <%= render "todos/new", space: @space, todo: @todo %>
 
-  <ul id="todos">
+  <ul id="todos" role="list" class="flex flex-column gap margin-block txt-align-start">
     <%= render partial: "todos/todo", locals: { space: @space }, collection: @todos, cached: true %>
     <li>No todos yet</li>
   </ul>

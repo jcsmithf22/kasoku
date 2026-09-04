@@ -1,12 +1,12 @@
-<%= form_with model: [space, member], url: space_members_path(space) do |form| %>
+<%= form_with model: [space, member], url: space_members_path(space), class: "flex flex-column gap txt-align-start" do |form| %>
   <div>
-    <%= form.email_field :user, value: member.user&.email_address, placeholder: "Email" %>
+    <%= form.email_field :user, value: member.user&.email_address, placeholder: "Email", class: "input" %>
   </div>
 
   <div>
-    <%= form.select :role, [%w[Member member], %w[Viewer viewer], %w[Admin admin]], { prompt: "Select role" } %>
+    <%= form.select :role, [%w[Member member], %w[Viewer viewer], %w[Admin admin]], { prompt: "Select role" }, class: "input" %>
   </div>
 
   <%= form.hidden_field :from, value: @back_to_members %>
-  <%= form.submit "Add member" %>
+  <%= form.submit "Add member", class: "btn btn--link align-self-start" %>
 <% end %>

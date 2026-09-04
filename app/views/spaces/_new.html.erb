@@ -1,5 +1,5 @@
 <%# locals: (space:) -%>
 
-<%= form_with model: space, data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form| %>
-  <%= form.text_field :name, id: "new_space", placeholder: "New space", autocomplete: "off" %>
+<%= form_with model: space, class: "center", data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form| %>
+  <%= form.text_field :name, id: "new_space", placeholder: "New space", autocomplete: "off", class: "input" %>
 <% end %>

@@ -1,10 +1,10 @@
 <%# locals: (space:, user:) -%>
 
 <li id="<%= dom_id space %>">
-  <%= link_to space do %>
+  <%= link_to space, class: "panel full-width flex gap justify-space-between align-center" do %>
     <span><%= space.name %></span>
     <% if user.id != space.owner_id %>
-      <span><%= space.my_role(user.id) %></span>
+      <span class="txt-small txt-subtle"><%= space.my_role(user.id) %></span>
     <% end %>
   <% end %>
 </li>

@@ -3,26 +3,28 @@
 
   <%= render "controls", space: @space %>
 
-  <section>
-    <h2>Information</h2>
-    <p>Name: <%= @space.name %></p>
-    <p>Owner: <%= @space.owner.full_name %></p>
-  </section>
+  <div class="flex flex-wrap gap align-start txt-align-start">
+    <section class="panel flex-item-grow">
+      <h2>Information</h2>
+      <p>Name: <%= @space.name %></p>
+      <p>Owner: <%= @space.owner.full_name %></p>
+    </section>
 
-  <section>
-    <h2>Todos</h2>
-    <p>Total: <%= @completion_stats[:count] %></p>
-    <p>Completed: <%= @completion_stats[:completed] %></p>
-    <p>Completion: <%= @completion_stats[:percentage] %>%</p>
-    <progress value="<%= @completion_stats[:percentage] %>" max="100"></progress>
-  </section>
+    <section class="panel flex-item-grow">
+      <h2>Todos</h2>
+      <p>Total: <%= @completion_stats[:count] %></p>
+      <p>Completed: <%= @completion_stats[:completed] %></p>
+      <p>Completion: <%= @completion_stats[:percentage] %>%</p>
+      <progress value="<%= @completion_stats[:percentage] %>" max="100"></progress>
+    </section>
 
-  <section>
-    <h2>Members</h2>
-    <p>Total: <%= [ @space.space_memberships.count - 1, 0 ].max %></p>
-    <p>Admin: <%= @space.space_memberships.admin.count %></p>
-    <p>Member: <%= @space.space_memberships.member.count %></p>
-    <p>Viewer: <%= @space.space_memberships.viewer.count %></p>
-    <%= link_to "Edit", space_members_path(@space) %>
-  </section>
+    <section class="panel flex-item-grow">
+      <h2>Members</h2>
+      <p>Total: <%= [ @space.space_memberships.count - 1, 0 ].max %></p>
+      <p>Admin: <%= @space.space_memberships.admin.count %></p>
+      <p>Member: <%= @space.space_memberships.member.count %></p>
+      <p>Viewer: <%= @space.space_memberships.viewer.count %></p>
+      <%= link_to "Edit", space_members_path(@space), class: "btn btn--small" %>
+    </section>
+  </div>
 </div>

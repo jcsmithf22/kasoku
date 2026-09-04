@@ -1,14 +1,14 @@
 <%# locals: (space:, todo:) -%>
 
-<dialog data-modal-target="modal">
+<dialog class="dialog panel shadow" data-modal-target="modal">
   <h3>Edit</h3>
-  <%= form_with model: [space, todo] do |form| %>
+  <%= form_with model: [space, todo], class: "flex flex-column gap" do |form| %>
     <div>
-      <%= form.text_field :name, placeholder: "Name", autocomplete: "off" %>
+      <%= form.text_field :name, placeholder: "Name", autocomplete: "off", class: "input" %>
     </div>
-    <div>
-      <button type="button" data-action="modal#close">Close</button>
-      <%= form.submit "Save" %>
+    <div class="flex flex-wrap gap justify-end">
+      <button type="button" class="btn" data-action="modal#close">Close</button>
+      <%= form.submit "Save", class: "btn btn--link" %>
     </div>
   <% end %>
 </dialog>

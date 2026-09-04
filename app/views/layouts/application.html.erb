@@ -24,21 +24,23 @@
   </head>
 
   <body>
-    <div><%= flash[:notice] %></div>
-    <div><%= flash[:alert] %></div>
+    <header id="header">
+      <nav class="flex flex-wrap gap-half">
+        <%= link_to "Home", root_path, class: "btn btn--reversed" %>
+        <% if authenticated? %>
+          <%= link_to "Settings", settings_root_path, class: "btn" %>
+          <%= button_to "Log out", session_path, method: :delete, class: "btn" %>
+        <% else %>
+          <%= link_to "Sign Up", sign_up_path, class: "btn btn--link" %>
+          <%= link_to "Login", new_session_path, class: "btn" %>
+        <% end %>
+      </nav>
+    </header>
 
-    <nav>
-      <%= link_to "Home", root_path %>
-      <% if authenticated? %>
-        <%= link_to "Settings", settings_root_path %>
-        <%= button_to "Log out", session_path, method: :delete %>
-      <% else %>
-        <%= link_to "Sign Up", sign_up_path %>
-        <%= link_to "Login", new_session_path %>
-      <% end %>
-    </nav>
+    <main id="main">
+      <div class="txt-subtle"><%= flash[:notice] %></div>
+      <div class="txt-negative"><%= flash[:alert] %></div>
 
-    <main>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
   </body>

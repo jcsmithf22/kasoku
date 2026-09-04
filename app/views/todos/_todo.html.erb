@@ -1,19 +1,19 @@
 <%# locals: (space:, todo:) -%>
 
 <% cache todo do %>
-  <li id="<%= dom_id todo %>" data-controller="modal">
-    <div>
+  <li id="<%= dom_id todo %>" class="panel full-width flex flex-wrap gap justify-space-between align-center" data-controller="modal">
+    <div class="flex gap align-center min-width">
       <%= form_with model: [space, todo] do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>
-        <%= form.button do %>
+        <%= form.button class: "btn btn--small" do %>
           <%= todo.completed? ? "Done" : "Todo" %>
         <% end %>
       <% end %>
-      <span data-action="dblclick->modal#open">
+      <span class="overflow-ellipsis" data-action="dblclick->modal#open">
         <%= todo.name %>
       </span>
     </div>
-    <%= button_to "Remove", space_todo_path(space, todo), method: :delete %>
+    <%= button_to "Remove", space_todo_path(space, todo), method: :delete, class: "btn btn--small btn--negative" %>
     <%= render partial: "todos/modal", locals: { space: space, todo: todo } %>
   </li>
 <% end %>

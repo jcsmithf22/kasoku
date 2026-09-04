@@ -1,21 +1,21 @@
 <h1>Change Email</h1>
 
-<%= form_with model: Current.user, url: settings_email_path do |form| %>
+<%= form_with model: Current.user, url: settings_email_path, class: "flex flex-column gap" do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="txt-negative">
       Error: <%= form.object.errors.full_messages.first %>
     </div>
   <% end %>
 
   <div>
     <%= form.label :unconfirmed_email, "New email address" %>
-    <%= form.email_field :unconfirmed_email, required: true %>
+    <%= form.email_field :unconfirmed_email, required: true, class: "input" %>
   </div>
 
   <div>
     <%= form.label :password_challenge %>
-    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password" %>
+    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password", class: "input" %>
   </div>
 
-  <%= form.submit "Update email address" %>
+  <%= form.submit "Update email address", class: "btn btn--link align-self-start" %>
 <% end %>
