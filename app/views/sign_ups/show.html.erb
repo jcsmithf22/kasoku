@@ -1,4 +1,4 @@
-<div class="panel center margin-block-double">
+<div class="panel shadow center margin-block-double">
   <h1>Sign Up</h1>
 
   <%= form_with model: @user, url: sign_up_path, class: "flex flex-column gap txt-align-start" do |form| %>
@@ -33,8 +33,11 @@
       <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "input" %>
     </div>
 
-    <div>
-      <%= form.submit "Sign up", class: "btn btn--link" %>
+    <div class="flex justify-center">
+      <button type="submit" class="btn btn--reversed">
+        <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Sign up</span>
+      </button>
     </div>
   <% end %>
 </div>

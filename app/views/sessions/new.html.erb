@@ -18,13 +18,16 @@
       <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "input" %>
     </div>
 
-    <div class="flex flex-wrap gap align-center justify-space-between">
-      <%= form.submit "Sign in", class: "btn btn--link" %>
+    <div class="flex justify-center">
+      <button type="submit" class="btn btn--reversed">
+        <%= image_tag "arrow-right.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Sign in</span>
+      </button>
+    </div>
+
+    <div class="flex flex-column gap-half">
       <%= link_to "Forgot password?", new_password_path %>
+      <%= link_to "Create an account", sign_up_path %>
     </div>
   <% end %>
-
-  <p>
-    <%= link_to "Create an account", sign_up_path %>
-  </p>
 </div>
