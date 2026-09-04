@@ -5,8 +5,8 @@
 
   <%= render "new", space: @space %>
 
-  <ul id="spaces" role="list" class="flex flex-column gap margin-block txt-align-start">
+  <ul id="spaces" role="list" class="flex flex-column gap-half margin-block txt-align-start">
     <%= render partial: "space", locals: { user: Current.user }, collection: @spaces %>
-    <li>No spaces yet</li>
+    <li class="txt-align-center only-child">No spaces yet</li>
   </ul>
 </div>

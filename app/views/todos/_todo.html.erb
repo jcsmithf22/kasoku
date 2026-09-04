@@ -1,7 +1,7 @@
 <%# locals: (space:, todo:) -%>
 
 <% cache todo do %>
-  <li id="<%= dom_id todo %>" class="panel full-width flex flex-wrap gap justify-space-between align-center max-inline-size" data-controller="modal">
+  <li id="<%= dom_id todo %>" class="border-radius fill-shade pad-double flex flex-wrap gap justify-space-between align-center" data-controller="modal">
     <div class="flex gap align-center min-width">
       <%= form_with model: [space, todo] do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>

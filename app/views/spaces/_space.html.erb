@@ -1,7 +1,7 @@
 <%# locals: (space:, user:) -%>
 
 <li id="<%= dom_id space %>">
-  <%= link_to space, class: "panel full-width flex gap justify-space-between align-center max-inline-size" do %>
+  <%= link_to space, class: "border-radius fill-shade pad-double txt-ink flex gap justify-space-between align-center" do %>
     <span><%= space.name %></span>
     <% if user.id != space.owner_id %>
       <span class="txt-small txt-subtle"><%= space.my_role(user.id) %></span>

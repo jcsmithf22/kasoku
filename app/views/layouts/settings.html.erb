@@ -1,13 +1,13 @@
 <%= content_for :content do %>
   <section class="flex flex-wrap gap align-start txt-align-start">
-    <nav class="panel flex flex-column gap-half">
+    <nav class="panel max-inline-size full-width flex flex-column gap-half">
       <h4>Account Settings</h4>
       <%= link_to "Profile", settings_profile_path, class: "btn" %>
       <%= link_to "Email", settings_email_path, class: "btn" %>
       <%= link_to "Password", settings_password_path, class: "btn" %>
       <%= link_to "Account", settings_user_path, class: "btn" %>
     </nav>
-    <div class="panel flex-item-grow">
+    <div class="panel max-inline-size flex-item-grow">
       <%= yield %>
     </div>
   </section>
