@@ -1,25 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! pg_isready -q; then
-  echo "Starting PostgreSQL..."
-  sudo service postgresql start
-fi
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-if ! redis-cli ping 2>/dev/null | grep -qx PONG; then
-  echo "Starting Redis..."
-  sudo service redis-server start
-fi
+bin/rails db:prepare
 
 DEFAULT_USER_EMAIL=demo@example.com \
 DEFAULT_USER_PASSWORD=password \
   bin/rails runner '
-    user = User.find_or_initialize_by(email: ENV.fetch("DEFAULT_USER_EMAIL"))
+    user = User.find_or_initialize_by(email_address: ENV.fetch("DEFAULT_USER_EMAIL"))
     user.update!(
-      name: "Demo User",
+      first_name: "Demo",
+      last_name: "User",
       password: ENV.fetch("DEFAULT_USER_PASSWORD")
     )
   '
 
-echo "PostgreSQL, Redis, and the default user are ready."
+echo "The default user is ready."
 echo "Log in with demo@example.com / password"

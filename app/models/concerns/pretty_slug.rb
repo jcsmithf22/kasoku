@@ -10,24 +10,23 @@ module PrettySlug
   end
 
   private
-
-  def default_prefix
-    self.class.name.downcase[0..2]
-  end
-
-  def set_slug
-    slug = generate_slug
-    attempts = 1
-
-    while self.class.exists?(self.class.slug_column => slug) && attempts < 4
-      slug = generate_slug
-      attempts += 1
+    def default_prefix
+      self.class.name.downcase[0..2]
     end
 
-    write_attribute(self.class.slug_column, slug)
-  end
+    def set_slug
+      slug = generate_slug
+      attempts = 1
 
-  def generate_slug
-    "#{self.class.slug_prefix || default_prefix}#{self.class.slug_separator}#{SecureRandom.hex((self.class.slug_length / 2).to_i)}"
-  end
+      while self.class.exists?(self.class.slug_column => slug) && attempts < 4
+        slug = generate_slug
+        attempts += 1
+      end
+
+      write_attribute(self.class.slug_column, slug)
+    end
+
+    def generate_slug
+      "#{self.class.slug_prefix || default_prefix}#{self.class.slug_separator}#{SecureRandom.hex((self.class.slug_length / 2).to_i)}"
+    end
 end

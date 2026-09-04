@@ -1,5 +1,4 @@
 class SpacesController < ApplicationController
-  # allow_unauthenticated only: :index
   before_action :set_space, only: %i[show destroy]
   before_action :verify_owner, only: :destroy
 
@@ -14,18 +13,14 @@ class SpacesController < ApplicationController
     respond_to do |format|
       if @space.save
         @space.space_memberships.create(user: Current.user, role: "owner")
-        format.html do
-          redirect_to space_path(@space.slug),
-                      status: :see_other,
-                      notice: "Space was successfully created."
-        end
+        format.html { redirect_to @space, status: :see_other, notice: "Space was successfully created." }
         format.turbo_stream
       else
         format.html do
           load_spaces
           render :index, status: :unprocessable_entity
         end
-        format.turbo_stream { render "error" }
+        format.turbo_stream { render :error }
       end
     end
   end
@@ -36,53 +31,29 @@ class SpacesController < ApplicationController
     @todos = @space.todos.order(id: :desc)
   end
 
-  def edit
-  end
-
   def destroy
     @space.destroy!
 
-    flash[:success] = "Space was successfully destroyed."
-
-    redirect_to root_path, status: :see_other
-
-    # this will be needed if we delete from the spaces index page
-
-    # respond_to do |format|
-    #   format.html do
-    #     redirect_to spaces_path,
-    #                 status: :see_other,
-    #                 notice: "Space was successfully destroyed."
-    #   end
-    #   format.turbo_stream
-    # end
+    redirect_to root_path, status: :see_other, notice: "Space was successfully destroyed."
   end
 
   private
+    def set_space
+      @space = Current.user.spaces.find_by(slug: params[:id])
+      render "errors/show", status: :unprocessable_entity unless @space
+    end
 
-  # uses slug rather than id because path will be displayed
-  def set_space
-    @space = Current.user.spaces.find_by(slug: params[:id])
+    def load_spaces
+      @spaces = Current.user.spaces.includes(:space_memberships).order(id: :desc)
+    end
 
-    return if @space
+    def space_params
+      params.expect(space: [ :name, :description ])
+    end
 
-    # flash[:error] = "Space does not exist"
-    # redirect_to root_path, status: :see_other
-    render "errors/show", status: :unprocessable_entity
-  end
+    def verify_owner
+      return if @space.owned_by?(Current.user)
 
-  def load_spaces
-    @spaces = Current.user.spaces.includes(:space_memberships).order(id: :desc)
-  end
-
-  def space_params
-    params.require(:space).permit(:name, :description)
-  end
-
-  def verify_owner
-    return if owner?(@space)
-
-    flash[:error] = "Insufficient permissions"
-    redirect_to space_path(@space.slug), status: :see_other
-  end
+      redirect_to @space, status: :see_other, alert: "Insufficient permissions"
+    end
 end

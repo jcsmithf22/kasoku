@@ -2,53 +2,26 @@ class SpaceMembership < ApplicationRecord
   belongs_to :user
   belongs_to :space, touch: true
 
-  scope :admin, -> { where(role: "admin") }
-  scope :member, -> { where(role: "member") }
-  scope :viewer, -> { where(role: "viewer") }
-
-  validates :user,
-            on: :add_member,
-            uniqueness: {
-              scope: :space_id,
-              message: "is already a member"
-            }
-
-  validates :role, presence: true
-
   enum :role, {
-         admin: "admin",
-         member: "member",
-         viewer: "viewer",
-         owner: "owner"
-       }
+    admin: "admin",
+    member: "member",
+    viewer: "viewer",
+    owner: "owner"
+  }
+
+  validates :user, presence: true, on: :add_member
+  validates :user, uniqueness: { scope: :space_id, message: "is already a member" }, on: :add_member
+  validates :role, presence: true
 
   after_create_commit :broadcast_create_later
   after_destroy_commit :broadcast_destroy
 
   private
+    def broadcast_create_later
+      broadcast_render_later_to user, partial: "spaces/create", locals: { space: space, user: user }
+    end
 
-  def broadcast_create_later
-    broadcast_render_later_to user,
-                              partial: "spaces/create",
-                              locals: {
-                                space: space,
-                                user: user
-                              }
-  end
-
-  def broadcast_destroy
-    broadcast_render_to user,
-                        partial: "spaces/destroy",
-                        locals: {
-                          space: space
-                        }
-  end
-
-  # after_destroy_commit :broadcast_remove
-
-  # private
-
-  # def broadcast_remove
-  #   broadcast_refresh_to "#{user_id}_membership_from_#{space_id}_removed"
-  # end
+    def broadcast_destroy
+      broadcast_render_to user, partial: "spaces/destroy", locals: { space: space }
+    end
 end

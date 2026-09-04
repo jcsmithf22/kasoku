@@ -1,42 +1,33 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-  end
+  setup { @user = User.take }
 
-  test "shows the login form without authentication" do
-    get new_session_url
+  test "new" do
+    get new_session_path
     assert_response :success
   end
 
-  test "creates a session for valid credentials" do
-    assert_difference("Session.count") do
-      post session_url,
-           params: { user: { email: @user.email, password: "password" } }
-    end
+  test "create with valid credentials" do
+    post session_path, params: { email_address: @user.email_address, password: "password" }
 
-    assert_redirected_to root_url
-    assert cookies[:session_id].present?
+    assert_redirected_to root_path
+    assert cookies[:session_id]
   end
 
-  test "rejects invalid credentials" do
-    assert_no_difference("Session.count") do
-      post session_url,
-           params: { user: { email: @user.email, password: "password".reverse } }
-    end
+  test "create with invalid credentials" do
+    post session_path, params: { email_address: @user.email_address, password: "wrong" }
 
-    assert_response :unprocessable_entity
+    assert_redirected_to new_session_path
+    assert_nil cookies[:session_id]
   end
 
-  test "destroys the current session" do
-    sign_in_as @user
+  test "destroy" do
+    sign_in_as(User.take)
 
-    assert_difference("Session.count", -1) do
-      delete logout_url
-    end
+    delete session_path
 
-    assert_redirected_to new_session_url
+    assert_redirected_to new_session_path
     assert_empty cookies[:session_id]
   end
 end

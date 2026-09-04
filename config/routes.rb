@@ -1,35 +1,31 @@
 Rails.application.routes.draw do
-  root "spaces#index"
+  resource :session
+  resources :passwords, param: :token
+  resource :sign_up
 
-  get "login", to: "sessions#new", as: :new_session
-  post "login", to: "sessions#create", as: :session
+  namespace :settings do
+    resource :password, only: %i[show update]
+    resource :profile, only: %i[show update]
+    resource :email, only: %i[show update]
+    resource :user, only: %i[show destroy]
+    root to: redirect("/settings/profile")
+  end
 
-  delete "logout", to: "sessions#destroy"
-
-  resource :sign_up, only: %i[show create]
+  namespace :email do
+    resources :confirmations, param: :token, only: [ :show ]
+  end
 
   resources :spaces, except: %i[index new] do
     resources :todos, only: %i[create update destroy]
     resources :details, only: %i[index], controller: "spaces/details"
-    resources :members,
-              only: %i[index new create destroy],
-              controller: "spaces/members"
+    resources :members, only: %i[index new create destroy], controller: "spaces/members"
   end
 
   namespace :users do
     resources :members, only: :destroy
   end
 
-  resource :profile, only: %i[show edit update], controller: "users"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get "up" => "rails/health#show", as: :rails_health_check
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", :as => :rails_health_check
-
-  # PWA routes
-  get "webmanifest" => "pwa#manifest"
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root "spaces#index"
 end

@@ -11,8 +11,7 @@ step() {
 }
 
 install_system_packages() {
-  # The locked pg and other native gems still require a compiler and libpq headers.
-  local packages=(build-essential libpq-dev postgresql redis-server)
+  local packages=(build-essential libsqlite3-dev libyaml-dev pkg-config)
   local missing=()
   local package
 
@@ -48,15 +47,6 @@ install_toolchains() {
   mise install
 }
 
-start_databases() {
-  sudo service postgresql start
-  sudo service redis-server start
-
-  if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname = '$USER'" | grep -q 1; then
-    sudo -u postgres createuser --superuser "$USER"
-  fi
-}
-
 install_dependencies() {
   mise run dependencies
 }
@@ -71,7 +61,6 @@ main() {
   step "Installing system packages" install_system_packages
   step "Installing mise" install_mise
   step "Installing mise-managed developer tools" install_toolchains
-  step "Starting PostgreSQL and Redis" start_databases
   step "Installing application dependencies" install_dependencies
   step "Preparing development and test databases" prepare_databases
 

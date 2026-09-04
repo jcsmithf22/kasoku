@@ -1,21 +1,16 @@
 <%= turbo_stream_from "#{@space.slug}_members" %>
 
-<div class="p-2 flex flex-col gap-2 sm:p-6">
-
-  <%= render "application/heading", title: "Members" %>
+<div class="mx-auto max-w-xl space-y-6">
+  <h1 class="font-bold text-4xl">Members</h1>
 
   <%= render "controls", space: @space %>
 
-  <ul class="w-full flex flex-col gap-2" id="members">
-    <li
-      class="
-        member bg-base-200 rounded-field py-3 px-6 flex items-center space-between
-      "
-    >
-      <span class="grow"><%= @space.owner.name %></span>
-      <span class="badge badge-sm badge-primary shrink-0">owner</span>
+  <ul class="space-y-2" id="members">
+    <li class="member flex items-center justify-between rounded-md bg-gray-100 py-3 px-4">
+      <span><%= @space.owner.full_name %></span>
+      <span class="text-xs uppercase tracking-wide text-gray-500">owner</span>
     </li>
     <%= render partial: "member", locals: { space: @space }, collection: @members %>
-    <li class="no-members p-4 text-center">No members yet</li>
+    <li class="no-members p-4 text-center text-gray-500">No members yet</li>
   </ul>
 </div>
