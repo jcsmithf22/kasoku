@@ -5,8 +5,8 @@
     <div class="flex gap align-center min-width">
       <%= form_with model: [space, todo] do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>
-        <%= form.button class: "btn btn--small", title: (todo.completed? ? "Mark as todo" : "Mark as done") do %>
-          <%= image_tag todo.completed? ? "check-circle.svg" : "circle.svg", aria: { hidden: true }, size: 24 %>
+        <%= form.button class: "btn btn--small btn--circle btn--todo", title: (todo.completed? ? "Mark as todo" : "Mark as done"), aria: { pressed: todo.completed? } do %>
+          <%= image_tag "check.svg", aria: { hidden: true }, size: 24 if todo.completed? %>
           <span class="for-screen-reader"><%= todo.completed? ? "Done" : "Todo" %></span>
         <% end %>
       <% end %>
