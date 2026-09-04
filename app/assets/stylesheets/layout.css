@@ -23,7 +23,7 @@
     grid-area: main;
     container-type: inline-size;
     font-size: var(--font-medium-responsive);
-    inline-size: min(48ch, 75vw);
+    inline-size: min(40ch, 75vw);
     max-inline-size: 100vw;
     padding-block-end: clamp(
       var(--block-space),

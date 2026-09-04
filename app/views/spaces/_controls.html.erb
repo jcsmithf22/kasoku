@@ -1,10 +1,12 @@
 <%# locals: (space:) -%>
 
-<div class="flex flex-wrap gap-half justify-center margin-block">
-  <%= link_to root_path, class: "btn btn--small", title: "Go back" do %>
-    <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Go back</span>
-  <% end %>
+<div class="flex gap-half justify-center margin-block">
+  <div class="full-width">
+    <%= link_to root_path, class: "btn btn--small", title: "Go back" do %>
+      <%= image_tag "arrow-left.svg", aria: { hidden: true }, size: 24 %>
+      <span class="for-screen-reader">Go back</span>
+    <% end %>
+  </div>
   <% if owner?(space) %>
     <%= link_to new_space_member_path(space), class: "btn btn--small btn--link", title: "Add member" do %>
       <%= image_tag "user-plus.svg", aria: { hidden: true }, size: 24 %>
