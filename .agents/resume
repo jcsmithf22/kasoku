@@ -11,4 +11,15 @@ if ! redis-cli ping 2>/dev/null | grep -qx PONG; then
   sudo service redis-server start
 fi
 
-echo "PostgreSQL and Redis are ready."
+DEFAULT_USER_EMAIL=demo@example.com \
+DEFAULT_USER_PASSWORD=password \
+  bin/rails runner '
+    user = User.find_or_initialize_by(email: ENV.fetch("DEFAULT_USER_EMAIL"))
+    user.update!(
+      name: "Demo User",
+      password: ENV.fetch("DEFAULT_USER_PASSWORD")
+    )
+  '
+
+echo "PostgreSQL, Redis, and the default user are ready."
+echo "Log in with demo@example.com / password"
