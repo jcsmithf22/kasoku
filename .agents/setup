@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+step() {
+  local label="$1"
+  shift
+  local started=$SECONDS
+  printf '\n==> %s\n' "$label"
+  "$@"
+  printf '    completed in %ss\n' "$((SECONDS - started))"
+}
+
+install_system_packages() {
+  # The locked pg and other native gems still require a compiler and libpq headers.
+  local packages=(build-essential libpq-dev postgresql redis-server)
+  local missing=()
+  local package
+
+  for package in "${packages[@]}"; do
+    dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -q 'install ok installed' || missing+=("$package")
+  done
+
+  if ((${#missing[@]})); then
+    sudo apt-get update -qq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "${missing[@]}"
+  else
+    echo "System packages are already installed."
+  fi
+}
+
+install_mise() {
+  if [[ ! -x "$HOME/.local/bin/mise" ]]; then
+    curl -fsSL https://mise.run | sh
+  fi
+
+  local marker='# kasoku mise activation'
+  if ! grep -Fqx "$marker" "$HOME/.bash_profile" 2>/dev/null; then
+    cat >> "$HOME/.bash_profile" <<'EOF'
+
+# kasoku mise activation
+eval "$("$HOME/.local/bin/mise" activate bash)"
+EOF
+  fi
+}
+
+install_toolchains() {
+  eval "$("$HOME/.local/bin/mise" activate bash)"
+  mise install
+}
+
+start_databases() {
+  sudo service postgresql start
+  sudo service redis-server start
+
+  if ! sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname = '$USER'" | grep -q 1; then
+    sudo -u postgres createuser --superuser "$USER"
+  fi
+}
+
+install_dependencies() {
+  mise run dependencies
+}
+
+prepare_databases() {
+  mise run database
+}
+
+main() {
+  cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+  step "Installing system packages" install_system_packages
+  step "Installing mise" install_mise
+  step "Installing mise-managed developer tools" install_toolchains
+  step "Starting PostgreSQL and Redis" start_databases
+  step "Installing application dependencies" install_dependencies
+  step "Preparing development and test databases" prepare_databases
+
+  printf '\nOrb setup complete.\n'
+}
+
+main "$@"

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! pg_isready -q; then
+  echo "Starting PostgreSQL..."
+  sudo service postgresql start
+fi
+
+if ! redis-cli ping 2>/dev/null | grep -qx PONG; then
+  echo "Starting Redis..."
+  sudo service redis-server start
+fi
+
+echo "PostgreSQL and Redis are ready."
