@@ -25,10 +25,12 @@
 
   <body>
     <header id="header">
-      <nav class="flex flex-wrap gap-half">
-        <%= link_to root_path, class: "btn btn--reversed", title: "Home" do %>
-          <%= image_tag "house.svg", aria: { hidden: true }, size: 24 %>
-          <span class="for-screen-reader">Home</span>
+      <nav class="flex flex-wrap gap-half justify-end">
+        <% if false %>
+          <%= link_to root_path, class: "btn btn--reversed", title: "Home" do %>
+            <%= image_tag "house.svg", aria: { hidden: true }, size: 24 %>
+            <span class="for-screen-reader">Home</span>
+          <% end %>
         <% end %>
         <% if authenticated? %>
           <%= link_to settings_root_path, class: "btn", title: "Settings" do %>

@@ -5,12 +5,17 @@
 
   <%= render "controls", space: @space %>
 
-  <ul id="members" role="list" class="flex flex-column gap margin-block txt-align-start">
+  <ul
+    id="members"
+    role="list"
+    class="flex flex-column gap margin-block txt-align-start"
+  >
     <li class="panel full-width flex gap justify-space-between align-center">
       <span><%= @space.owner.full_name %></span>
       <span class="txt-small txt-subtle">owner</span>
     </li>
+
     <%= render partial: "member", locals: { space: @space }, collection: @members %>
-    <li>No members yet</li>
+    <li class="txt-align-center only-child">No members yet</li>
   </ul>
 </div>

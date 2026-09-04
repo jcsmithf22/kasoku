@@ -12,7 +12,7 @@
     @media (min-width: 70ch) {
       grid-template-columns: 1fr auto 1fr;
       grid-template-areas:
-        ". header  ."
+        "header header header"
         ". toolbar ."
         ". main    ."
         ". footer .";
