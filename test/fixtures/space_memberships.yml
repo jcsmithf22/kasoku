@@ -3,9 +3,9 @@
 one:
   user: one
   space: one
-  role: MyString
+  role: owner
 
 two:
   user: two
   space: two
-  role: MyString
+  role: owner

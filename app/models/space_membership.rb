@@ -15,7 +15,7 @@ class SpaceMembership < ApplicationRecord
 
   validates :role, presence: true
 
-  enum role: {
+  enum :role, {
          admin: "admin",
          member: "member",
          viewer: "viewer",

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  name: One Todo
   completed: false
   space: one
 
 two:
-  title: MyString
+  name: Two Todo
   completed: false
   space: two

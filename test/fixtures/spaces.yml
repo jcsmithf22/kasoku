@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: One Space
+  description: The first space
+  slug: spc_one
+  owner: one
 
 two:
-  name: MyString
-  description: MyText
+  name: Two Space
+  description: The second space
+  slug: spc_two
+  owner: two

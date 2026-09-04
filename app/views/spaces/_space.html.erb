@@ -1,6 +1,6 @@
 <%# locals: (space:, user:) -%>
 
-<li id="<%= dom_id space %>" class="space bg-base-200 rounded-btn hover:bg-base-content/10">
+<li id="<%= dom_id space %>" class="space bg-base-200 rounded-field hover:bg-base-content/10">
   <%= link_to space_path(space.slug), class: "py-3 px-6 flex items-center space-between" do %>
   <span class="grow"><%= space.name %></span>
     <%= tag.span class: "badge badge-sm badge-accent shrink-0" do %>

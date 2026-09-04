@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include Authenticate
+  include Authentication
   include ApplicationHelper
 
   helper_method :back_or_default

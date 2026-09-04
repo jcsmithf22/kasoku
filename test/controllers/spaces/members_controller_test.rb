@@ -1,13 +1,18 @@
 require "test_helper"
 
 class Spaces::MembersControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get spaces_members_index_url
+  setup do
+    @space = spaces(:one)
+    sign_in_as users(:one)
+  end
+
+  test "gets members for a member" do
+    get space_members_url(@space.slug)
     assert_response :success
   end
 
-  test "should get new" do
-    get spaces_members_new_url
+  test "gets the new member form for an owner" do
+    get new_space_member_url(@space.slug)
     assert_response :success
   end
 end

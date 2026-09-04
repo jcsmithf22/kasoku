@@ -1,0 +1,29 @@
+class SignUpsController < ApplicationController
+  unauthenticated_access_only
+  rate_limit to: 10,
+             within: 3.minutes,
+             only: :create,
+             with: -> { redirect_to sign_up_path, alert: "Try again later." }
+
+  def show
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(sign_up_params)
+
+    if @user.save
+      start_new_session_for @user
+      flash[:success] = "Welcome to Kasoku, #{@user.name}"
+      redirect_to root_path, status: :see_other
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def sign_up_params
+    params.expect(user: %i[name email password password_confirmation])
+  end
+end
