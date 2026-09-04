@@ -1,13 +1,12 @@
 <%= turbo_stream_from Current.user %>
 
-<div class="p-2 flex flex-col gap-2 sm:p-6">
-
-  <%= render "application/heading", title: "Spaces" %>
+<div class="mx-auto max-w-xl space-y-6">
+  <h1 class="font-bold text-4xl">Spaces</h1>
 
   <%= render "new", space: @space %>
 
-  <ul class="w-full flex flex-col gap-2" id="spaces">
+  <ul class="space-y-2" id="spaces">
     <%= render partial: "space", locals: { user: Current.user }, collection: @spaces %>
-    <li class="no-spaces p-4 text-center">No spaces yet</li>
+    <li class="no-spaces p-4 text-center text-gray-500">No spaces yet</li>
   </ul>
 </div>

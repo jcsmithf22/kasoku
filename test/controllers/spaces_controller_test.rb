@@ -12,7 +12,7 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "gets a space when authenticated" do
-    get space_url(spaces(:one).slug)
+    get space_url(spaces(:one))
     assert_response :success
   end
 

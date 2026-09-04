@@ -1,19 +1,15 @@
 [tools]
 ruby = "4.0.6"
-node = "24.20.0"
-yarn = "1.22.22"
-"gem:bundler" = "4.0.20"
 
 [tasks.dependencies]
-description = "Install locked Ruby and JavaScript dependencies"
+description = "Install locked Ruby dependencies"
 run = [
-  "bundle check || bundle install --jobs \"$(nproc)\" --retry 3",
-  "yarn install --frozen-lockfile",
+  "bundle check || bundle install --jobs \"$(nproc)\" --retry 3"
 ]
 
 [tasks.database]
 description = "Prepare development and test databases"
 run = [
   "bin/rails db:prepare",
-  "RAILS_ENV=test bin/rails db:prepare",
+  "RAILS_ENV=test bin/rails db:prepare"
 ]

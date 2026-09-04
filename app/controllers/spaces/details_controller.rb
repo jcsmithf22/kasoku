@@ -7,15 +7,8 @@ class Spaces::DetailsController < ApplicationController
   end
 
   private
-
-  # uses slug because path will be displayed
-  def set_space
-    @space = Current.user.spaces.find_by(slug: params[:space_id])
-
-    return if @space
-
-    # flash[:error] = "Space does not exist"
-    # redirect_to root_pathstatus: :see_other
-    render "errors/show", status: :unprocessable_entity
-  end
+    def set_space
+      @space = Current.user.spaces.find_by(slug: params[:space_id])
+      render "errors/show", status: :unprocessable_entity unless @space
+    end
 end

@@ -1,77 +1,40 @@
-<div class="p-2 flex flex-col gap-2 sm:p-6">
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Sign Up</h1>
 
-  <%= render "application/heading", title: "Create an account" %>
+  <%= form_with model: @user, url: sign_up_path, class: "contents" do |form| %>
+    <% if form.object.errors.any? %>
+      <div class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg">
+        Error: <%= form.object.errors.full_messages.first %>
+      </div>
+    <% end %>
 
-  <%= form_with(model: @user, url: sign_up_path, class: "w-full flex flex-col gap-y-6") do |form| %>
-    <div>
-      <%= form.label :name, class: "input input-bordered flex items-center gap-2" do %>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="w-4 h-4 opacity-70"
-        ><path
-            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"
-          /></svg>
-        <%= form.text_field :name, class: "grow", placeholder: "Name" %>
-      <% end %>
+    <div class="my-5">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name, required: true, autofocus: true, autocomplete: "given-name", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div>
-      <%= form.label :email, class: "input input-bordered flex items-center gap-2" do %>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="w-4 h-4 opacity-70"
-        ><path
-            d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z"
-          /><path
-            d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"
-          /></svg>
-        <%= form.email_field :email, class: "grow", placeholder: "Email" %>
-      <% end %>
+    <div class="my-5">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name, required: true, autocomplete: "family-name", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div>
-      <%= form.label :password, class: "input input-bordered flex items-center gap-2" do %>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="w-4 h-4 opacity-70"
-        ><path
-            fill-rule="evenodd"
-            d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-            clip-rule="evenodd"
-          /></svg>
-        <%= form.password_field :password, class: "grow", placeholder: "Password" %>
-      <% end %>
+    <div class="my-5">
+      <%= form.label :email_address %>
+      <%= form.email_field :email_address, required: true, autocomplete: "email", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div>
-      <%= form.label :password_confirmation, class: "input input-bordered flex items-center gap-2" do %>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="w-4 h-4 opacity-70"
-        ><path
-            fill-rule="evenodd"
-            d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-            clip-rule="evenodd"
-          /></svg>
-        <%= form.password_field :password_confirmation,
-                            class: "grow",
-                            placeholder: "Confirm password" %>
-      <% end %>
+    <div class="my-5">
+      <%= form.label :password %>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <%= form.submit "Sign up", class: "btn btn-neutral" %>
+    <div class="my-5">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "Sign up", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+    </div>
   <% end %>
-
-  <%= link_to "Already have an account?",
-  new_session_path,
-  class: "link link-hover text-center mt-4" %>
-
 </div>

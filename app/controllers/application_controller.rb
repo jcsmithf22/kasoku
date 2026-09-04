@@ -1,21 +1,12 @@
 class ApplicationController < ActionController::Base
   include Authentication
-  include ApplicationHelper
+  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
+  allow_browser versions: :modern
 
-  helper_method :back_or_default
-
-  # before_action :store_last_page
+  # Changes to the importmap will invalidate the etag for HTML responses
+  stale_when_importmap_changes
 
   def store_last_page
-    # return unless request.get?
-    # session[:last_page] = session[:current_page]
-    # session[:current_page] = request.fullpath
-    # puts "session[:last_page]: #{session[:last_page]}"
-    # puts "session[:current_page]: #{session[:current_page]}"
     session[:last_page] = request.fullpath
-  end
-
-  def back_or_default(default_path = root_path)
-    session[:last_page] || default_path
   end
 end

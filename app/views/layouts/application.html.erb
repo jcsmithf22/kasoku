@@ -1,43 +1,45 @@
 <!DOCTYPE html>
-<html data-theme="cupcake">
+<html>
   <head>
-    <title>Kasoku</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    >
-    <%# <meta name="viewport" content="viewport-fit=cover"> %>
-    <meta name="view-transition" content="same-origin"/>
+    <title><%= content_for(:title) || "Kasoku" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Kasoku">
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= tag.link rel: "manifest", href: webmanifest_path(format: :json) %>
-    <%= tag.link rel: "apple-touch-icon", sizes: "180x180", href: asset_path("apple-touch-icon.png") %>
-    <%= tag.link rel: "image/png", sizes: "32x32", href: asset_path("favicon-32x32.png") %>
-    <%= tag.link rel: "image/png", sizes: "16x16", href: asset_path("favicon-16x16.png") %>
-    <%= tag.link rel: "icon", href: asset_path("favicon.ico") %>
+    <%= yield :head %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application",
-    "data-turbo-track": "reload",
-    type: "module" %>
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
-    <%= content_for :head %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
 
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <div class="notice text-green-700"><%= flash[:notice] %></div>
+    <div class="alert text-red-700"><%= flash[:alert] %></div>
 
-    <%= render "flash" %>
+    <nav class="navbar flex justify-end gap-4 max-w-5xl mx-auto p-4 text-sm">
+      <%= link_to "Home", root_path %>
+      <% if authenticated? %>
+        <%= link_to "Settings", settings_root_path %>
+        <%= button_to "Log out", session_path, method: :delete %>
+      <% else %>
+        <%= link_to "Sign Up", sign_up_path %>
+        <%= link_to "Login", new_session_path %>
+      <% end %>
+    </nav>
 
-    <main class="<%= class_names(
-      "overflow-x-hidden sm:max-w-lg sm:mx-auto",
-      "adjusted-max-height overflow-y-scroll": Current.user
-    ) %>">
-      <%= yield %>
+    <main class="container mx-auto mt-8 px-5">
+      <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
-
-    <%= render "bottom_navigation" if Current.user %>
   </body>
 </html>

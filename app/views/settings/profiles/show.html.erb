@@ -1,0 +1,21 @@
+<h1 class="font-bold text-4xl">Profile</h1>
+
+<%= form_with model: Current.user, url: settings_profile_path, class: "contents" do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="py-2 px-3 bg-red-50 my-5 text-red-500 font-medium rounded-lg">
+      Error: <%= form.object.errors.full_messages.first %>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, required: true, autocomplete: "given-name", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, required: true, autocomplete: "family-name", class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <%= form.submit "Update profile", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+<% end %>

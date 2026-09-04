@@ -11,26 +11,15 @@ class Todo < ApplicationRecord
   after_destroy_commit :broadcast_destroy
 
   private
+    def broadcast_create_later
+      broadcast_render_later_to space, partial: "todos/create", locals: { todo: self, space: space }
+    end
 
-  def broadcast_create_later
-    broadcast_render_later_to space,
-                              partial: "todos/create",
-                              locals: {
-                                todo: self,
-                                space: space
-                              }
-  end
+    def broadcast_update_later
+      broadcast_render_later_to space, partial: "todos/update", locals: { todo: self, space: space }
+    end
 
-  def broadcast_update_later
-    broadcast_render_later_to space,
-                              partial: "todos/update",
-                              locals: {
-                                todo: self,
-                                space: space
-                              }
-  end
-
-  def broadcast_destroy
-    broadcast_render_to space, partial: "todos/destroy", locals: { todo: self }
-  end
+    def broadcast_destroy
+      broadcast_render_to space, partial: "todos/destroy", locals: { todo: self }
+    end
 end

@@ -1,20 +1,13 @@
 <%= turbo_stream_from @space %>
 
-<div class="p-2 flex flex-col gap-2 sm:p-6">
-
-  <%= render "application/heading", title: @space.name %>
+<div class="mx-auto max-w-xl space-y-6">
+  <h1 class="font-bold text-4xl"><%= @space.name %></h1>
 
   <%= render "spaces/controls", space: @space %>
-
   <%= render "todos/new", space: @space, todo: @todo %>
 
-  <ul class="w-full flex flex-col gap-2" id="todos">
-    <%= render partial: "todos/todo",
-    locals: {
-      space: @space,
-    },
-    collection: @todos,
-    cached: true %>
-    <li class="no-todos p-4 text-center">No todos yet</li>
+  <ul class="space-y-2" id="todos">
+    <%= render partial: "todos/todo", locals: { space: @space }, collection: @todos, cached: true %>
+    <li class="no-todos p-4 text-center text-gray-500">No todos yet</li>
   </ul>
 </div>

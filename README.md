@@ -1,24 +1,12 @@
-# README
+# Kasoku
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Realtime shared todo lists, rebuilt on Rails 8.1 defaults with Tailwind.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+```bash
+bin/setup
+bin/dev
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Sign up at `/sign_up`, or log in at `/session/new`.
