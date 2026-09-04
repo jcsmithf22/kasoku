@@ -71,7 +71,7 @@
   }
 }
 
-.input--textara {
+.input--textarea {
   --input-padding: 0.5em;
 
   line-height: 1.1;
@@ -175,7 +175,7 @@
     :-webkit-autofill,
     :-webkit-autofill:hover,
     :-webkit-autofill:focus)) {
-      -webkit-text-fill-color: var(--color-text);
+      -webkit-text-fill-color: var(--color-ink);
       -webkit-box-shadow: 0 0 0px 1000px var(--color-selected) inset;
   }
 }

@@ -1,4 +1,5 @@
 .lightbox {
+  --backdrop-speed: 150ms;
   --speed: 150ms;
 
   background-color: oklch(var(--lch-white) / 0.66);
