@@ -1,28 +1,28 @@
-<div class="mx-auto max-w-xl space-y-6">
-  <h1 class="font-bold text-4xl">Details</h1>
+<div>
+  <h1>Details</h1>
 
   <%= render "controls", space: @space %>
 
-  <section class="rounded-md bg-gray-100 p-6 space-y-2">
-    <h2 class="font-semibold text-lg">Information</h2>
+  <section>
+    <h2>Information</h2>
     <p>Name: <%= @space.name %></p>
     <p>Owner: <%= @space.owner.full_name %></p>
   </section>
 
-  <section class="rounded-md bg-gray-100 p-6 space-y-2">
-    <h2 class="font-semibold text-lg">Todos</h2>
+  <section>
+    <h2>Todos</h2>
     <p>Total: <%= @completion_stats[:count] %></p>
     <p>Completed: <%= @completion_stats[:completed] %></p>
     <p>Completion: <%= @completion_stats[:percentage] %>%</p>
-    <progress class="w-full" value="<%= @completion_stats[:percentage] %>" max="100"></progress>
+    <progress value="<%= @completion_stats[:percentage] %>" max="100"></progress>
   </section>
 
-  <section class="rounded-md bg-gray-100 p-6 space-y-2">
-    <h2 class="font-semibold text-lg">Members</h2>
+  <section>
+    <h2>Members</h2>
     <p>Total: <%= [ @space.space_memberships.count - 1, 0 ].max %></p>
     <p>Admin: <%= @space.space_memberships.admin.count %></p>
     <p>Member: <%= @space.space_memberships.member.count %></p>
     <p>Viewer: <%= @space.space_memberships.viewer.count %></p>
-    <%= link_to "Edit", space_members_path(@space), class: "inline-block mt-2 rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium" %>
+    <%= link_to "Edit", space_members_path(@space) %>
   </section>
 </div>

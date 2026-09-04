@@ -1,19 +1,19 @@
 <%# locals: (space:, todo:) -%>
 
 <% cache todo do %>
-  <li id="<%= dom_id todo %>" class="todo flex items-center justify-between rounded-md bg-gray-100" data-controller="modal">
-    <div class="flex items-center grow">
+  <li id="<%= dom_id todo %>" data-controller="modal">
+    <div>
       <%= form_with model: [space, todo] do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>
-        <%= form.button class: "m-2 rounded-md border px-2 py-1 #{todo.completed? ? "bg-green-600 text-white" : "bg-white"}" do %>
+        <%= form.button do %>
           <%= todo.completed? ? "Done" : "Todo" %>
         <% end %>
       <% end %>
-      <span data-action="dblclick->modal#open" class="block w-full py-3 pr-3 <%= "opacity-50" if todo.completed? %>">
+      <span data-action="dblclick->modal#open">
         <%= todo.name %>
       </span>
     </div>
-    <%= button_to "Remove", space_todo_path(space, todo), method: :delete, class: "m-2 text-sm text-gray-500 hover:text-red-600" %>
+    <%= button_to "Remove", space_todo_path(space, todo), method: :delete %>
     <%= render partial: "todos/modal", locals: { space: space, todo: todo } %>
   </li>
 <% end %>

@@ -1,10 +1,10 @@
 <%# locals: (space:) -%>
 
-<div class="flex flex-wrap gap-2">
-  <%= link_to "Back", root_path, class: "rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200" %>
-  <%= link_to "Add member", new_space_member_path(space), class: "rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200" if owner?(space) %>
-  <%= link_to "Members", space_members_path(space), class: "rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200" %>
-  <%= link_to "Details", space_details_path(space), class: "rounded-md px-3 py-2 bg-gray-100 hover:bg-gray-200" %>
-  <%= link_to "Leave", users_member_path(space.id, slug: space.slug), data: { turbo_method: :delete }, class: "rounded-md px-3 py-2 bg-yellow-100 hover:bg-yellow-200" unless owner?(space) %>
-  <%= link_to "Delete", space, data: { turbo_method: :delete, turbo_confirm: "Delete this space?" }, class: "rounded-md px-3 py-2 bg-red-100 hover:bg-red-200" if owner?(space) %>
+<div>
+  <%= link_to "Back", root_path %>
+  <%= link_to "Add member", new_space_member_path(space) if owner?(space) %>
+  <%= link_to "Members", space_members_path(space) %>
+  <%= link_to "Details", space_details_path(space) %>
+  <%= link_to "Leave", users_member_path(space.id, slug: space.slug), data: { turbo_method: :delete } unless owner?(space) %>
+  <%= link_to "Delete", space, data: { turbo_method: :delete, turbo_confirm: "Delete this space?" } if owner?(space) %>
 </div>

@@ -1,5 +1,5 @@
-<h1 class="font-bold text-4xl">Account</h1>
+<h1>Account</h1>
 
-<p class="my-5"><%= Current.user.full_name %> · <%= Current.user.email_address %></p>
+<p><%= Current.user.full_name %> · <%= Current.user.email_address %></p>
 
-<%= button_to "Delete my account", settings_user_path, method: :delete, data: { turbo_confirm: "Are you sure? This cannot be undone." }, class: "rounded-md px-3.5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-medium cursor-pointer" %>
+<%= button_to "Delete my account", settings_user_path, method: :delete, data: { turbo_confirm: "Are you sure? This cannot be undone." } %>

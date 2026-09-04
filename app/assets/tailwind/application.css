@@ -1,7 +1,0 @@
-@import "tailwindcss";
-
-#spaces:has(.space) .no-spaces,
-#todos:has(.todo) .no-todos,
-#members:has(.member) .no-members {
-  display: none;
-}

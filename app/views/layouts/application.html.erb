@@ -24,10 +24,10 @@
   </head>
 
   <body>
-    <div class="notice text-green-700"><%= flash[:notice] %></div>
-    <div class="alert text-red-700"><%= flash[:alert] %></div>
+    <div><%= flash[:notice] %></div>
+    <div><%= flash[:alert] %></div>
 
-    <nav class="navbar flex justify-end gap-4 max-w-5xl mx-auto p-4 text-sm">
+    <nav>
       <%= link_to "Home", root_path %>
       <% if authenticated? %>
         <%= link_to "Settings", settings_root_path %>
@@ -38,7 +38,7 @@
       <% end %>
     </nav>
 
-    <main class="container mx-auto mt-8 px-5">
+    <main>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
   </body>
