@@ -2,8 +2,12 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
   has_many :space_memberships, dependent: :destroy
-  has_many :spaces, through: :space_memberships
+  has_many :joined_spaces, through: :space_memberships, source: :space
   has_many :owned_spaces, class_name: "Space", foreign_key: :owner_id, dependent: :destroy
+
+  def accessible_spaces
+    Space.accessible_to(self)
+  end
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 

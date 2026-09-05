@@ -2,12 +2,8 @@ class Users::MembersController < ApplicationController
   before_action :set_membership
 
   def destroy
-    if @membership.owner?
-      redirect_to space_path(params[:slug] || @membership.space.slug), alert: "You are the owner"
-    else
-      @membership.destroy!
-      redirect_to root_path, status: :see_other, notice: "You have left the space"
-    end
+    @membership.destroy!
+    redirect_to root_path, status: :see_other, notice: "You have left the space"
   end
 
   private

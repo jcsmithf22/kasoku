@@ -20,7 +20,7 @@
 
     <section class="panel flex-item-grow">
       <h2>Members</h2>
-      <p>Total: <%= [ @space.space_memberships.count - 1, 0 ].max %></p>
+      <p>Total: <%= @space.space_memberships.count %></p>
       <p>Admin: <%= @space.space_memberships.admin.count %></p>
       <p>Member: <%= @space.space_memberships.member.count %></p>
       <p>Viewer: <%= @space.space_memberships.viewer.count %></p>

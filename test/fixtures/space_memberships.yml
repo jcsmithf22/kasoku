@@ -1,9 +1,1 @@
-one:
-  user: one
-  space: one
-  role: owner
-
-two:
-  user: two
-  space: two
-  role: owner
+{}

@@ -16,9 +16,34 @@ class SpacesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "creates a space and owner membership via Turbo" do
+  test "joined users can access a space but unrelated users cannot" do
+    space = spaces(:two)
+    get space_url(space)
+    assert_response :unprocessable_entity
+
+    space.space_memberships.create!(user: @user, role: "member")
+    get space_url(space)
+    assert_response :success
+  end
+
+  test "owner cannot leave but a joined user can" do
+    space = spaces(:one)
+    delete users_member_url(space.id)
+    assert_response :unprocessable_entity
+    assert_includes @user.accessible_spaces, space
+
+    joined = spaces(:two)
+    joined.space_memberships.create!(user: @user, role: "member")
+    assert_difference "SpaceMembership.count", -1 do
+      delete users_member_url(joined.id)
+    end
+    assert_redirected_to root_url
+    assert_not_includes @user.accessible_spaces, joined
+  end
+
+  test "creates a space without an owner membership via Turbo" do
     assert_difference("Space.count") do
-      assert_difference("SpaceMembership.count") do
+      assert_no_difference("SpaceMembership.count") do
         post spaces_url,
              params: { space: { name: "New Space" } },
              headers: { "Accept" => "text/vnd.turbo-stream.html" }

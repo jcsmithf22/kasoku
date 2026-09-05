@@ -10,7 +10,15 @@ class Space < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :accessible_to, ->(user) {
+    where(owner_id: user.id).or(
+      where(id: SpaceMembership.where(user_id: user.id).select(:space_id))
+    )
+  }
+
+  after_create_commit :broadcast_create_to_owner
   after_update_commit :broadcast_update
+  after_destroy_commit :broadcast_destroy_to_owner
 
   def to_param
     slug
@@ -43,6 +51,14 @@ class Space < ApplicationRecord
   end
 
   private
+    def broadcast_create_to_owner
+      broadcast_render_later_to owner, partial: "spaces/create", locals: { space: self, user: owner }
+    end
+
+    def broadcast_destroy_to_owner
+      broadcast_render_to owner, partial: "spaces/destroy", locals: { space: self }
+    end
+
     def broadcast_update
       broadcast_refresh_later_to "#{slug}_members"
     end

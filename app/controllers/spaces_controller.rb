@@ -12,7 +12,6 @@ class SpacesController < ApplicationController
 
     respond_to do |format|
       if @space.save
-        @space.space_memberships.create(user: Current.user, role: "owner")
         format.html { redirect_to @space, status: :see_other, notice: "Space was successfully created." }
         format.turbo_stream
       else
@@ -39,12 +38,12 @@ class SpacesController < ApplicationController
 
   private
     def set_space
-      @space = Current.user.spaces.find_by(slug: params[:id])
+      @space = Current.user.accessible_spaces.find_by(slug: params[:id])
       render "errors/show", status: :unprocessable_entity unless @space
     end
 
     def load_spaces
-      @spaces = Current.user.spaces.includes(:space_memberships).order(id: :desc)
+      @spaces = Current.user.accessible_spaces.includes(:space_memberships).order(id: :desc)
     end
 
     def space_params

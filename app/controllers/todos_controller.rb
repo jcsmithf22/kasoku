@@ -43,7 +43,7 @@ class TodosController < ApplicationController
     end
 
     def set_space
-      @space = Current.user.spaces.find_by(slug: params[:space_id]) || Current.user.spaces.find_by(id: params[:space_id])
+      @space = Current.user.accessible_spaces.find_by(slug: params[:space_id])
       render "errors/show", status: :unprocessable_entity unless @space
     end
 
