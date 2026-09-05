@@ -1,8 +1,52 @@
 require "test_helper"
+require "turbo/broadcastable/test_helper"
 
 class SpaceTest < ActiveSupport::TestCase
   include ActionCable::TestHelper
   include ActiveJob::TestHelper
+  include Turbo::Broadcastable::TestHelper
+
+  test "todo writes refresh details but not members and retain row broadcasts" do
+    space = spaces(:one)
+    todo = space.todos.new(name: "Live todo")
+
+    [ -> { todo.save! }, -> { todo.update!(completed: true) }, -> { todo.destroy! } ].each do |write|
+      assert_no_broadcasts "#{space.slug}_members" do
+        assert_turbo_stream_broadcasts space do
+          refreshes = capture_turbo_stream_broadcasts [ space, :details ] do
+            perform_enqueued_jobs(&write)
+          end
+          assert_equal [ "refresh" ], refreshes.map { |stream| stream["action"] }
+        end
+      end
+    end
+  end
+
+  test "membership writes refresh details and members" do
+    space = spaces(:one)
+    membership = space.space_memberships.new(user: users(:two), role: "member")
+
+    [ -> { membership.save! }, -> { membership.update!(role: "admin") }, -> { membership.destroy! } ].each do |write|
+      members_refreshes = capture_turbo_stream_broadcasts "#{space.slug}_members" do
+        details_refreshes = capture_turbo_stream_broadcasts [ space, :details ] do
+          perform_enqueued_jobs(&write)
+        end
+        assert_equal [ "refresh" ], details_refreshes.map { |stream| stream["action"] }
+      end
+      assert_equal [ "refresh" ], members_refreshes.map { |stream| stream["action"] }
+    end
+  end
+
+  test "space information updates refresh details but not members" do
+    space = spaces(:one)
+
+    assert_no_broadcasts "#{space.slug}_members" do
+      refreshes = capture_turbo_stream_broadcasts [ space, :details ] do
+        perform_enqueued_jobs { space.update!(name: "Updated space") }
+      end
+      assert_equal [ "refresh" ], refreshes.map { |stream| stream["action"] }
+    end
+  end
 
   test "broadcasts creation and destruction to the owner without a membership" do
     owner = users(:one)

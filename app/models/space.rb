@@ -16,9 +16,9 @@ class Space < ApplicationRecord
     )
   }
 
-  after_create_commit :broadcast_create_to_owner
-  after_update_commit :broadcast_update
-  after_destroy_commit :broadcast_destroy_to_owner
+  after_create_commit :broadcast_space_addition_to_owner
+  after_update_commit :broadcast_details_refresh
+  after_destroy_commit :broadcast_space_removal_to_owner
 
   def to_param
     slug
@@ -51,15 +51,15 @@ class Space < ApplicationRecord
   end
 
   private
-    def broadcast_create_to_owner
+    def broadcast_space_addition_to_owner
       broadcast_render_later_to owner, partial: "spaces/create", locals: { space: self, user: owner }
     end
 
-    def broadcast_destroy_to_owner
+    def broadcast_space_removal_to_owner
       broadcast_render_to owner, partial: "spaces/destroy", locals: { space: self }
     end
 
-    def broadcast_update
-      broadcast_refresh_later_to "#{slug}_members"
+    def broadcast_details_refresh
+      broadcast_refresh_later_to self, :details
     end
 end

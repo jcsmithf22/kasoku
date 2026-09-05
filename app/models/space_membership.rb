@@ -13,19 +13,24 @@ class SpaceMembership < ApplicationRecord
   validates :role, presence: true
   validate :user_is_not_owner
 
-  after_create_commit :broadcast_create_later
-  after_destroy_commit :broadcast_destroy
+  after_create_commit :broadcast_space_addition_to_user
+  after_destroy_commit :broadcast_space_removal_to_user
+  after_commit :broadcast_members_refresh, on: %i[create update destroy]
 
   private
+    def broadcast_members_refresh
+      broadcast_refresh_later_to "#{space.slug}_members"
+    end
+
     def user_is_not_owner
       errors.add(:user, "already owns this space") if user && space&.owned_by?(user)
     end
 
-    def broadcast_create_later
+    def broadcast_space_addition_to_user
       broadcast_render_later_to user, partial: "spaces/create", locals: { space: space, user: user }
     end
 
-    def broadcast_destroy
+    def broadcast_space_removal_to_user
       broadcast_render_to user, partial: "spaces/destroy", locals: { space: space }
     end
 end
