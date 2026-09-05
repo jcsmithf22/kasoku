@@ -1,6 +1,5 @@
-<%= turbo_stream_from @space %>
-
-<div>
+<div class="<%= @space.editable_by?(Current.user) ? 'todos--editable' : 'todos--readonly' %>">
+  <%= turbo_stream_from @space %>
   <h1><%= @space.name %></h1>
 
   <%= render "spaces/controls", space: @space %>

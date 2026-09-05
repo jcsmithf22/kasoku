@@ -3,18 +3,22 @@
 <% cache todo do %>
   <li id="<%= dom_id todo %>" class="border-radius fill-shade pad-double flex flex-wrap gap justify-space-between align-center" data-controller="modal">
     <div class="flex gap align-center min-width">
-      <%= form_with model: [space, todo] do |form| %>
+      <%= form_with model: [space, todo], class: "todo-editable" do |form| %>
         <%= form.hidden_field :completed, value: !todo.completed %>
         <%= form.button class: "btn btn--small btn--circle btn--todo", title: (todo.completed? ? "Mark as todo" : "Mark as done"), aria: { pressed: todo.completed? } do %>
           <%= image_tag "check.svg", aria: { hidden: true }, size: 24 if todo.completed? %>
           <span class="for-screen-reader"><%= todo.completed? ? "Done" : "Todo" %></span>
         <% end %>
       <% end %>
+      <span class="todo-status btn btn--small btn--circle <%= 'btn--link' if todo.completed? %>">
+        <%= image_tag "check.svg", aria: { hidden: true }, size: 24 if todo.completed? %>
+        <span class="for-screen-reader"><%= todo.completed? ? "Done" : "Todo" %></span>
+      </span>
       <span class="overflow-ellipsis" data-action="dblclick->modal#open">
         <%= todo.name %>
       </span>
     </div>
-    <%= button_to space_todo_path(space, todo), method: :delete, class: "btn btn--small btn--negative", title: "Remove" do %>
+    <%= button_to space_todo_path(space, todo), method: :delete, form_class: "todo-editable", class: "btn btn--small btn--negative", title: "Remove" do %>
       <%= image_tag "trash.svg", aria: { hidden: true }, size: 24 %>
       <span class="for-screen-reader">Remove</span>
     <% end %>

@@ -28,6 +28,10 @@ class Space < ApplicationRecord
     owner_id == user&.id
   end
 
+  def editable_by?(user)
+    owned_by?(user) || space_memberships.exists?(user: user, role: "member")
+  end
+
   def my_role(user_id)
     return "owner" if owner_id == user_id
 

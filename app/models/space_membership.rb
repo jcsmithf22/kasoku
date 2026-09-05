@@ -3,7 +3,6 @@ class SpaceMembership < ApplicationRecord
   belongs_to :space, touch: true
 
   enum :role, {
-    admin: "admin",
     member: "member",
     viewer: "viewer"
   }, validate: true

@@ -4,6 +4,8 @@ export default class extends Controller {
   static targets = [ "modal" ]
 
   open() {
+    if (this.element.closest(".todos--readonly")) return
+
     this.modalTarget.showModal()
   }
 

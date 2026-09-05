@@ -4,7 +4,7 @@
   </div>
 
   <div>
-    <%= form.select :role, [%w[Member member], %w[Viewer viewer], %w[Admin admin]], { prompt: "Select role" }, class: "input" %>
+    <%= form.select :role, [["Member", "member"], ["Viewer (read-only)", "viewer"]], { prompt: "Select role" }, class: "input" %>
   </div>
 
   <%= form.hidden_field :from, value: @back_to_members %>

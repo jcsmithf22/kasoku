@@ -1,0 +1,10 @@
+@layer components {
+  .todos--readonly .todo-editable,
+  .todos--editable .todo-status {
+    display: none;
+  }
+
+  .todo-status {
+    cursor: default;
+  }
+}

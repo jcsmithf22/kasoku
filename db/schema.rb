@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_05_120000) do
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_120000) do
     t.index ["space_id"], name: "index_space_memberships_on_space_id"
     t.index ["user_id", "space_id"], name: "index_space_memberships_on_user_id_and_space_id", unique: true
     t.index ["user_id"], name: "index_space_memberships_on_user_id"
-    t.check_constraint "role IN ('admin', 'member', 'viewer')", name: "space_memberships_valid_role"
+    t.check_constraint "role IN ('member', 'viewer')", name: "space_memberships_valid_role"
   end
 
   create_table "spaces", force: :cascade do |t|

@@ -38,4 +38,19 @@ class Spaces::MembersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test "members and viewers cannot add members" do
+    membership = @space.space_memberships.create!(user: users(:two), role: "member")
+    sign_in_as users(:two)
+
+    %w[member viewer].each do |role|
+      membership.update!(role: role)
+      assert_no_difference "SpaceMembership.count" do
+        post space_members_url(@space), params: {
+          space_membership: { user: "new@example.com", role: "member" }
+        }
+      end
+      assert_redirected_to @space
+    end
+  end
 end

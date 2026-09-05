@@ -26,7 +26,7 @@ class SpaceTest < ActiveSupport::TestCase
     space = spaces(:one)
     membership = space.space_memberships.new(user: users(:two), role: "member")
 
-    [ -> { membership.save! }, -> { membership.update!(role: "admin") }, -> { membership.destroy! } ].each do |write|
+    [ -> { membership.save! }, -> { membership.update!(role: "viewer") }, -> { membership.destroy! } ].each do |write|
       members_refreshes = capture_turbo_stream_broadcasts "#{space.slug}_members" do
         details_refreshes = capture_turbo_stream_broadcasts [ space, :details ] do
           perform_enqueued_jobs(&write)
@@ -93,7 +93,7 @@ class SpaceTest < ActiveSupport::TestCase
 
   test "owner cannot be added as a member" do
     space = spaces(:one)
-    membership = space.space_memberships.new(user: space.owner, role: "admin")
+    membership = space.space_memberships.new(user: space.owner, role: "member")
 
     assert_not membership.save
     assert_includes membership.errors[:user], "already owns this space"

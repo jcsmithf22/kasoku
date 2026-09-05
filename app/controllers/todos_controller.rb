@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_space
+  before_action :verify_edit_access
   before_action :set_todo, only: %i[update destroy]
 
   def create
@@ -38,6 +39,10 @@ class TodosController < ApplicationController
   end
 
   private
+    def verify_edit_access
+      head :forbidden unless @space.editable_by?(Current.user)
+    end
+
     def todo_params
       params.expect(todo: [ :name, :completed ])
     end
