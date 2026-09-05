@@ -11,7 +11,10 @@
         <%= image_tag "x.svg", aria: { hidden: true }, size: 24 %>
         <span class="for-screen-reader">Close</span>
       </button>
-      <%= form.submit "Save", class: "btn btn--link" %>
+      <%= form.button class: "btn btn--link", title: "Save" do %>
+        <%= image_tag "check.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Save</span>
+      <% end %>
     </div>
   <% end %>
 </dialog>
