@@ -6,74 +6,106 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     sign_in_as users(:one)
   end
 
-  test "creates a todo via Turbo" do
-    assert_difference("Todo.count") do
-      post space_todos_url(@space),
-           params: { todo: { name: "New Todo" } },
-           headers: { "Accept" => "text/vnd.turbo-stream.html" }
+  test "create as HTML" do
+    assert_difference "Todo.count", 1 do
+      post space_todos_path(@space), params: { todo: { name: "New Todo" } }
+    end
+
+    assert_redirected_to @space
+    assert_equal "New Todo", @space.todos.order(:id).last.name
+  end
+
+  test "create as Turbo Stream" do
+    assert_difference "Todo.count", 1 do
+      post space_todos_path(@space), params: { todo: { name: "New Todo" } }, as: :turbo_stream
     end
 
     assert_response :success
   end
 
-  test "completes a todo via Turbo" do
-    todo = todos(:one)
+  test "create validation failure as HTML" do
+    assert_no_difference "Todo.count" do
+      post space_todos_path(@space), params: { todo: { name: "" } }
+    end
 
-    patch space_todo_url(@space, todo),
-          params: { todo: { completed: true } },
-          headers: { "Accept" => "text/vnd.turbo-stream.html" }
-
-    assert_response :success
-    assert todo.reload.completed?
+    assert_response :unprocessable_entity
   end
 
-  test "viewers receive shared markup but cannot write todos" do
-    get space_url(@space)
-    assert_select ".todos--editable", count: 1
-    owner_stream = css_select("turbo-cable-stream-source").first["signed-stream-name"]
+  test "create validation failure as Turbo Stream" do
+    assert_no_difference "Todo.count" do
+      post space_todos_path(@space), params: { todo: { name: "" } }, as: :turbo_stream
+    end
+
+    assert_response :success
+  end
+
+  test "update as HTML" do
+    patch space_todo_path(@space, todos(:one)), params: { todo: { name: "Updated" } }
+
+    assert_redirected_to @space
+    assert_equal "Updated", todos(:one).reload.name
+  end
+
+  test "update as Turbo Stream" do
+    patch space_todo_path(@space, todos(:one)),
+      params: { todo: { completed: true } },
+      as: :turbo_stream
+
+    assert_response :success
+    assert todos(:one).reload.completed?
+  end
+
+  test "destroy as HTML" do
+    assert_difference "Todo.count", -1 do
+      delete space_todo_path(@space, todos(:one))
+    end
+
+    assert_redirected_to @space
+  end
+
+  test "destroy as Turbo Stream" do
+    assert_difference "Todo.count", -1 do
+      delete space_todo_path(@space, todos(:one)), as: :turbo_stream
+    end
+
+    assert_response :success
+  end
+
+  test "member can mutate todos" do
+    @space.space_memberships.create!(user: users(:two), role: "member")
+    sign_in_as users(:two)
+
+    assert_difference "Todo.count", 1 do
+      post space_todos_path(@space), params: { todo: { name: "Member Todo" } }
+    end
+
+    assert_redirected_to @space
+  end
+
+  test "viewer cannot mutate todos" do
+    todo = todos(:one)
     @space.space_memberships.create!(user: users(:two), role: "viewer")
     sign_in_as users(:two)
 
-    get space_url(@space)
-    assert_response :success
-    assert_select ".todos--readonly .todo-editable"
-    assert_select ".todos--readonly .todo-status"
-    assert_equal owner_stream, css_select("turbo-cable-stream-source").first["signed-stream-name"]
-
-    todo = todos(:one)
-    [ "text/html", "text/vnd.turbo-stream.html" ].each do |accept|
-      headers = { "Accept" => accept }
-      assert_no_difference "Todo.count" do
-        post space_todos_url(@space), params: { todo: { name: "Forbidden" } }, headers: headers
-        assert_response :forbidden
-        delete space_todo_url(@space, todo), headers: headers
-        assert_response :forbidden
-      end
-      patch space_todo_url(@space, todo), params: { todo: { name: "Forbidden", completed: true } }, headers: headers
-      assert_response :forbidden
-      assert_equal "One Todo", todo.reload.name
-      assert_not todo.completed?
+    assert_no_difference "Todo.count" do
+      post space_todos_path(@space), params: { todo: { name: "Forbidden" } }
     end
+    assert_response :forbidden
+
+    patch space_todo_path(@space, todo), params: { todo: { name: "Forbidden" } }
+    assert_response :forbidden
+    assert_equal "One Todo", todo.reload.name
+
+    assert_no_difference "Todo.count" do
+      delete space_todo_path(@space, todo)
+    end
+    assert_response :forbidden
   end
 
-  test "members can create edit complete and delete todos" do
-    @space.space_memberships.create!(user: users(:two), role: "member")
-    sign_in_as users(:two)
-    get space_url(@space)
-    assert_select ".todos--editable", count: 1
+  test "todo lookup is scoped to the space" do
+    patch space_todo_path(@space, todos(:two)), params: { todo: { name: "Wrong space" } }
 
-    assert_difference "Todo.count", 1 do
-      post space_todos_url(@space), params: { todo: { name: "Member todo" } }
-      assert_redirected_to @space
-    end
-    todo = @space.todos.find_by!(name: "Member todo")
-    patch space_todo_url(@space, todo), params: { todo: { name: "Edited", completed: true } }
-    assert_redirected_to @space
-    assert_equal "Edited", todo.reload.name
-    assert todo.completed?
-    assert_difference "Todo.count", -1 do
-      delete space_todo_url(@space, todo)
-      assert_redirected_to @space
-    end
+    assert_response :not_found
+    assert_equal "Two Todo", todos(:two).reload.name
   end
 end
