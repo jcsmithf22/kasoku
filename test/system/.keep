@@ -1,0 +1,1 @@
+# Keep this directory so Rails can run test:system before system tests are added.
