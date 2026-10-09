@@ -11,7 +11,7 @@ step() {
 }
 
 install_system_packages() {
-  local packages=(build-essential libsqlite3-dev libyaml-dev pkg-config)
+  local packages=(build-essential libsqlite3-dev libvips42 libyaml-dev pkg-config)
   local missing=()
   local package
 
